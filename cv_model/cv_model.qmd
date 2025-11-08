@@ -1,0 +1,166 @@
+---
+title: Untitled
+format:
+  modern2-cv-pdf: default
+author: Gabriel Rodrigues
+cvfont: comfortaa #texlive fonts like raleway,fetamont,gillius,comfortaa
+cvcolor: 
+  main: B83B5E
+  accent: 6A2C70
+jobtitle: PhD Candidate
+sidebar:
+  image: profile.jpg
+  bullets:
+    - Bahia, Ilhéus
+    - Brazillian
+    - UESC
+  sections: 
+    - name: Skills
+      items:
+        - text: R
+          exp: 
+            text: "5 yrs."
+            num: 0.95
+        - text: Python
+          exp: 
+            text: "2 yrs."
+            num: 0.4
+        - text: Rmarkdown
+          exp: 
+            text: "5 yrs."
+            num: 0.95
+        - text: Quarto
+          exp: 
+            text: "1 yr."
+            num: 0.25
+        - text: Data Analysis
+          exp: 
+            text: "6 years"
+            num: 1
+        - text: Shiny
+          exp: 
+            text: "1 yrs."
+            num: 0.25
+    - name: Tools
+      items:
+        - Git
+        - RStudio
+        - VS Code
+        - Terminal 
+    - name: Education
+      items:
+        - text: "MSc. in Genetics and Molecular Biology"
+          inst: "Universidade Estadual de Santa Cruz"
+          time: "04/2023 - 05/2025"
+          details: "Dissertation: RNA-Seq Analysis of T. cacao"
+        - text: "Bachelor in Interdisciplinary Sciences"
+          inst: "Universidade Federal do Sul da Bahia"
+          time: "06/2018 - 08/2022"
+          details: "Biostatistics of Native species in Antlantic Forest"
+    - name: Contact
+      items:
+        - icon: phone
+          text: "+55 73 98111 3295"
+        - icon: envelope
+          text: gvpina.rodrigues@gmail.com
+        - icon: home
+          text: Personal Blog
+          href: https://gabrielvpina.github.io/myBlog/
+        - icon: github
+          text: gabrielvpina
+          href: https://github.com/gabrielvpina
+        - icon: twitter
+          text: gabrielvpina
+          href: https://twitter.com/gabrielvpina  
+execute: 
+  echo: false
+---
+
+```{r}
+#| label: cvevents
+cvevents <- function(tbl, when, what, where, descr) {
+
+    command_start <- "\\cvevent"
+    tbl[[where]] <- gsub("\n", " \\\\newline ", tbl[[where]])
+    res <- paste0(
+        command_start, "{", tbl[[when]], "}", 
+        "{", tbl[[what]], "}",
+        "{", tbl[[where]], "}",
+        "{", tbl[[descr]], "}"
+        )
+
+    cat(res, sep = "\n\n\n")
+}
+
+cvproj <- function(tbl,what,role,items){
+    command_start <- "\\cvproj"
+    res <- paste0(
+        command_start, "{", tbl[[what]], "}",
+        "{", tbl[[role]], "}",
+        "{", sapply(tbl[[items]], function(x)paste0(x,collapse = ", ")), "}"
+    )
+
+    cat(res, sep = "\n\n\n")
+}
+```
+
+# Summary
+
+I am a Master's graduate in Genetics and Molecular Biology and current PhD Candidate, specializing in the intersection of genomics, bioinformatics, and public health surveillance. My core technical skills include high-throughput sequencing data analysis (RNA-Seq processing, assembly, differential expression), advanced Python and R programming, and expert command-line proficiency (Linux). I have a proven ability to translate complex molecular and epidemiological data into actionable insights, demonstrated through the development of bioinformatics pipelines for pathogen sequence identification and the creation of real-time public health dashboards leveraging large-scale disease information systems. I am adept at collaborating across scientific disciplines to address pressing health challenges and committed to strengthening regional capacity in data-driven disease monitoring and outbreak response.
+
+# Experience
+
+```{r}
+#| label: experience
+#| output: asis
+tibble::tribble(
+    ~role, ~institution, ~dates, ~details,
+    "PhD Researcher, Bioinformatics", 
+    "Biotechnology and Genetics Center\nUESC - Universidade Estadual de Santa Cruz", 
+    "04/2025 - Present", 
+    "Developing and maintaining ViralQuest, an open-source Python pipeline for the rapid and accurate identification and annotation of viral sequences.",
+
+    "Public Health Data Analyst/Dashboard Developer", 
+    "UESC - Universidade Estadual de Santa Cruz\nRegional Health Authorities", 
+    "08/2025 - Present", 
+    "Utilizing Notifiable Diseases Information System data to develop real-time response dashboards using R Shiny. This work translates complex epidemiological data into actionable information for regional policymakers in the South Bahia state.",
+
+    "Master's Researcher - Genetics \\& Mol. Biology", 
+    "Biotechnology and Genetics Center\nUESC - Universidade Estadual de Santa Cruz", 
+    "04/2023 - 05/2025", 
+    "Conducted comprehensive RNA-Seq data analysis (acquisition, processing, assembly, differential expression) focused on *Theobroma cacao*. Engaged in collaborative projects resulting in peer-reviewed publications on novel viral species in cocoa and arthropods."
+
+) |>
+    cvevents(when = "dates", what = "role", where = "institution", descr = "details")
+```
+
+# Projects
+
+See my **[github profile](https://github.com/gabrielvpina)** for a comprehensive list of open source projects.
+
+```{r}
+#| label: proj
+#| output: asis
+tibble::tribble(
+    ~what, ~role, ~items,
+    "Bioinformatics Pipeline (Python)", "Creator and Maintainer",
+    c(
+        "ViralQuest: An open-source Python package (available on PyPI and GitHub) for the rapid and accurate identification and annotation of viral sequences.",
+        "Designed to streamline genomic surveillance and pathogen discovery workflows for molecular epidemiology.",
+        "Focuses on advanced sequence alignment, annotation methods, and efficient coding practices."
+    ),
+    "Public Health Dashboards (R Shiny)", "Developer and Analyst",
+    c(
+        "Developed real-time disease monitoring dashboards leveraging official SINAN (Notifiable Diseases Information System) data for the South Bahia state region.",
+        "Used the R Shiny package to translate complex epidemiological data into clear, actionable information.",
+        "Supports regional policy-makers and local public health authorities in accelerating outbreak response and decision-making."
+    ),
+    "Academic Research \\& Collaborations", "Lead Researcher and Genomic Analyst",
+    c(
+        "Master's thesis involved end-to-end RNA-Seq data analysis (processing, assembly, differential expression) on Cocoa plants.",
+        "Collaborative pathogen discovery: published work identifying novel viral species in cocoa and arthropods.",
+        "Genomic screening project: analyzed miRNA data to investigate metabolic function in arthropods."
+    )
+) |>
+    cvproj(what = "what", role = "role", items = "items")
+```
