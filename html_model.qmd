@@ -1,0 +1,49 @@
+---
+title: Relatório Estatístico
+
+date: "last-modified"
+date-format: "long"
+
+license: "CC BY-SA 4.0"
+
+author:
+  - name: Gabriel Rodrigues
+    degrees:
+      - MSc
+    id: gr
+    orcid: 0009-0005-2294-2845
+    email: gvpina.rodrigues@gmail.com
+    affiliation:
+      - name: Universidade Estadual de Santa Cruz
+        city: Ilhéus
+        state: Bahia
+        url: www.uesc.br
+
+abstract: >
+  Relatório com a descrição e resultados dos testes estatísticos utilizados. Para esse relatório, foram analisados dados fenotípicos de diversas matrizes da mesma espécie. As análises realizadas foram: Testes de Normalidade, Análise de Correlação e Significância, Análise de Componentes Principais, Análise de Agrupamento, Comparação Intergrupos e Análises de Descritores Qualitativos. Esse relatório também pode ser encontrado em formato PDF, as figuras individuais de cada gráfico estão nas pastas "figuras_pdf" e "figuras_png". O código R completo com os testes realizados está no arquivo "analise.R".
+
+keywords:
+  - Testes de Normalidade
+  - Correlação e Significância
+  - Redução de Dimensionalidade
+  - Análise de Agrupamento
+
+lightbox: true
+format:
+    html:
+        number-sections: true
+        theme: flatly
+        code-fold: true
+        code-summary: "Mostrar Código"
+        toc: true
+        toc_float: true
+        self-contained: true
+        other-links:
+        - text: Website
+          href: https://gabrielvpina.github.io/myBlog/
+        code-links:
+        - text: Código Fonte
+          icon: file-code
+          href: analise.R
+lang: pt
+---
