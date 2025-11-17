@@ -5,7 +5,7 @@ author: David Schoch
 date: today
 date-format: long
 
-cvfont: raleway #texlive fonts like raleway,fetamont,gillius,comfortaa
+cvfont: comfortaa #texlive fonts like raleway,fetamont,gillius,comfortaa
 cvcolor: 
   main: B83B5E
   accent: 6A2C70
