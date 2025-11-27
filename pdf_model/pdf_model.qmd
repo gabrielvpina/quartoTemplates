@@ -1,0 +1,50 @@
+---
+title: Atividade - Introdução a Máxima Parcimônia
+
+date: "last-modified"
+date-format: "long"
+
+
+license: "CC BY-SA 4.0"
+
+
+author:
+  - name: Gabriel Rodrigues
+    degrees:
+      - MSc
+    id: gr
+    orcid: 0009-0005-2294-2845
+    email: gvpina.rodrigues@gmail.com
+    affiliation:
+      - name: Universidade Estadual de Santa Cruz
+        city: Ilhéus
+        state: Bahia
+        url: www.uesc.br
+        
+       
+
+format:
+  pdf:
+    pdf-engine: xelatex
+    # -------------------------------------
+    # Fonte do Corpo do Texto (mainfont)
+    # -------------------------------------
+    mainfont: "fontName"
+    mainfontoptions:
+      - Path = ./fonts/
+      - Extension = .ttf
+      - UprightFont = *-Regular
+      - BoldFont = *-Bold
+      - ItalicFont = *-Italic
+      
+    # -------------------------------------
+    # Fonte dos Títulos (sansfont)
+    # -------------------------------------
+    sansfont: "fontName" 
+    sansfontoptions:
+      - Path = ./fonts/ 
+      - Extension = .ttf
+      - UprightFont = *-Regular
+      - BoldFont = *-Bold
+      - ItalicFont = *-Italic
+---
