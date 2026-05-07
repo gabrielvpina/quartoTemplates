@@ -1,0 +1,211 @@
+---
+title: Untitled
+format:
+  modern2-cv-pdf: default
+author: Gabriel Rodrigues
+cvfont: raleway #texlive fonts like raleway,fetamont,gillius,comfortaa
+cvcolor: 
+  main: 577A48
+  accent: 3E8D1C
+jobtitle: Bioinformatics Scientist
+sidebar:
+  image: profile.jpg
+  bullets:
+    - Bahia, Brazil
+    - Full Remote
+    - LatAm Timezone (GMT-3)
+  sections: 
+    - name: Stack
+      items:
+        - text: R
+          exp: 
+            text: "5 yrs."
+            num: 0.95
+        - text: Python
+          exp: 
+            text: "3 yrs."
+            num: 0.6
+        - text: Rmarkdown
+          exp: 
+            text: "5 yrs."
+            num: 0.95
+        - text: Quarto
+          exp: 
+            text: "2 yr."
+            num: 0.4
+        - text: Data Analysis
+          exp: 
+            text: "6 years"
+            num: 1
+        - text: Shiny
+          exp: 
+            text: "2 yrs."
+            num: 0.4
+
+    - name: Core Skills
+      items:
+        - NGS \& Bulk RNA-Seq Analysis
+        - Multi-omics Integration
+        - Functional Genomics
+        - Cloud \& HPC (AWS, Linux, SLURM)
+
+    - name: Workflows
+      items:
+        - Python \& R (Bioconductor)
+        - Bash Scripting
+        - Nextflow Pipelines
+        - Machine Learning \& LLMs
+
+    - name: Data Visualization
+      items:
+        - R Shiny (Advanced)
+        - Quarto \& RMarkdown
+        - HTML Reports
+
+    - name: Education
+      items:
+        - text: "MSc. in Genetics and Molecular Biology"
+          inst: "Universidade Estadual de Santa Cruz"
+          time: "04/2023 - 05/2025"
+          details: "RNA-Seq Analysis of cocoa tissues"
+        - text: "Bachelor in Interdisciplinary Sciences"
+          inst: "Universidade Federal do Sul da Bahia"
+          time: "06/2018 - 08/2022"
+          details: "Biostatistics of Native species in Antlantic Forest"
+
+    - name: Contact
+      items:
+        - icon: phone
+          text: "+55 73 98111 3295"
+        - icon: envelope
+          text: gvpina.rodrigues@gmail.com
+        - icon: home
+          text: Personal Blog
+          href: https://gabrielvpina.github.io/myBlog/
+        - icon: github
+          text: gabrielvpina
+          href: https://github.com/gabrielvpina
+        - icon: twitter
+          text: gabrielvpina
+          href: https://twitter.com/gabrielvpina  
+
+execute: 
+  echo: false
+---
+
+```{r}
+#| label: cvevents
+cvevents <- function(tbl, when, what, where, descr) {
+
+    command_start <- "\\cvevent"
+    tbl[[where]] <- gsub("\n", " \\\\newline ", tbl[[where]])
+    res <- paste0(
+        command_start, "{", tbl[[when]], "}", 
+        "{", tbl[[what]], "}",
+        "{", tbl[[where]], "}",
+        "{", tbl[[descr]], "}"
+        )
+
+    cat(res, sep = "\n\n\n")
+}
+
+cvproj <- function(tbl,what,role,items){
+    command_start <- "\\cvproj"
+    res <- paste0(
+        command_start, "{", tbl[[what]], "}",
+        "{", tbl[[role]], "}",
+        "{", sapply(tbl[[items]], function(x)paste0(x,collapse = ", ")), "}"
+    )
+
+    cat(res, sep = "\n\n\n")
+}
+```
+
+# Professional Summary
+
+Bioinformatics Scientist with extensive experience designing and deploying next-generation sequencing (NGS) workflows and integrating complex multi-omics datasets. Proficient in UNIX/Linux high-performance computing, Bash scripting, and orchestrating scalable data pipelines utilizing Nextflow and AWS cloud infrastructure. Demonstrated expertise in developing advanced analytical approaches—including machine learning and dimensionality reduction algorithms—to mine genomic databases for target identification. Strong track record of automating data processing and translating large-scale biological datasets into actionable insights through robust R Shiny applications.
+
+# Experience
+
+```{r}
+#| label: experience
+#| output: asis
+tibble::tribble(
+    ~role, ~institution, ~dates, ~details,
+    "PhD Researcher, Bioinformatics \\& NGS Workflows", 
+    "Biotechnology and Genetics Center\nUESC - Universidade Estadual de Santa Cruz", 
+    "04/2025 - Present", 
+    "Architected and deployed automated NGS data analysis workflows using Python, Bash, and Nextflow on AWS and Linux HPC environments (SLURM). Developed 'ViralQuest', an open-source pipeline for rapid viral sequence mining and annotation. Innovated analytical methods by implementing Isomap and machine learning algorithms for multi-omics predictive modeling.",
+
+    "Public Health Data Analyst \\& R Shiny Developer", 
+    "UESC - Universidade Estadual de Santa Cruz\nRegional Health Authorities", 
+    "08/2025 - Present", 
+    "Developed interactive data visualization tools and web applications using R Shiny to integrate and analyze large-scale disease datasets from the Notifiable Diseases Information System (SINAN). Automated reporting pipelines to deliver rigorous, actionable insights to cross-functional teams and public health stakeholders.",
+
+    "Genomics Researcher - Transcriptomics", 
+    "Biotechnology and Genetics Center\nUESC - Universidade Estadual de Santa Cruz", 
+    "04/2023 - 05/2025", 
+    "Performed comprehensive bulk RNA-seq data analysis to interpret functional genomic datasets. Utilized R/Bioconductor for statistical analysis, differential expression, and integration of multi-omics data. Benchmarked bioinformatics tools, ensured stringent QC measures, and contributed to peer-reviewed publications regarding novel target identification."
+
+) |>
+    cvevents(when = "dates", what = "role", where = "institution", descr = "details")
+```
+
+# Key Projects and Computational Tools
+  
+Check my **[GitHub profile](https://github.com/gabrielvpina/)** for a list of code repositories.  
+<br>
+
+```{r}
+#| label: proj
+#| output: asis
+tibble::tribble(
+    ~what, ~role, ~items,
+    "ViralQuest Bioinformatics Pipeline", "Creator and Lead Developer",
+        "Engineered an automated, scalable Python package (published on PyPI) for end-to-end pathogen sequence identification.
+        Integrated advanced sequence alignment and data mining methodologies across public genomic databases.
+        Maintained rigorous technical documentation, strict version control, and modular coding standards for cross-functional scientific use."
+    ,
+    "Scalable Data Visualization Frameworks", "Developer",
+        "Built dynamic R Shiny applications designed to process, analyze, and visualize high-throughput epidemiological datasets in real-time.
+        Ensured compliance with data integrity standards while translating raw statistical outputs into accessible formats for non-technical audiences."
+    ,
+    "Multi-omics Data Integration \\& Functional Genomics", "Genomic Analyst",
+
+        "Led end-to-end processing of transcriptomic data (processing, assembly, downstream statistical analysis) using state-of-the-art computational methods.
+        Identified novel biological targets via comprehensive miRNA network screening and pathway characterization.
+        Collaborated seamlessly across disciplinary boundaries to interpret complex results and co-author technical manuscripts."
+) |>
+    cvproj(what = "what", role = "role", items = "items")
+```
+
+# Selected Publications
+
+```{r}
+#| label: publications
+#| output: asis
+tibble::tribble(
+    ~dates, ~title, ~authors, ~details,
+    "02/2026", "ViralQuest: A user-friendly interactive pipeline for viral-sequences analysis", 
+    "\\textbf{Rodrigues, G. V. P.} et al.", 
+    "BMC Bioinformatics. DOI: https://doi.org/10.1186/s12859-026-06391-6",
+
+    "02/2026", "Tracing ancient viral footprints: endogenous viral elements in \\textit{Bombus} species", 
+    "Conceição, L. B. A., ..., \\textbf{Rodrigues, G. V. P.} et al.", 
+    "Mobile DNA. DOI: https://doi.org/10.1186/s13100-026-00393-0",
+
+    "06/2025", "Insights into miRNAs of the Stingless Bee \\textit{Melipona quadrifasciata}", 
+    "Soares, D. O., ..., \\textbf{Rodrigues, G. V. P.} et al.", 
+    "Non-Coding RNA. DOI: https://doi.org/10.3390/ncrna11030048",
+
+    "04/2025", "\\textit{Theobroma cacao} Virome: Public RNA-Seq Data for Viral Discovery", 
+    "\\textbf{Rodrigues, G. V. P.} et al.", 
+    "Viruses. DOI: https://www.mdpi.com/1999-4915/17/5/624",
+
+    "07/2024", "The Virome of Cocoa Fermentation-Associated Microorganisms", 
+    "Santos, J. P. N., \\textbf{Rodrigues, G. V. P.} et al.", 
+    "Viruses. DOI: https://doi.org/10.3390/v16081226"
+
+) |>
+    cvevents(when = "dates", what = "title", where = "authors", descr = "details")
+```
