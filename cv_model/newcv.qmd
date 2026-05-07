@@ -19,25 +19,21 @@ sidebar:
       items:
         - text: R
           exp: 
+            text: "5 years"
+            num: 1
+        - text: Rmarkdown
+          exp: 
             text: "5 yrs."
-            num: 0.95
+            num: 1
         - text: Python
           exp: 
             text: "3 yrs."
             num: 0.6
-        - text: Rmarkdown
-          exp: 
-            text: "5 yrs."
-            num: 0.95
-        - text: Quarto
-          exp: 
-            text: "2 yr."
-            num: 0.4
-        - text: Data Analysis
-          exp: 
-            text: "6 years"
-            num: 1
         - text: Shiny
+          exp: 
+            text: "2 yrs."
+            num: 0.4
+        - text: Quarto
           exp: 
             text: "2 yrs."
             num: 0.4
@@ -51,16 +47,17 @@ sidebar:
 
     - name: Workflows
       items:
-        - Python \& R (Bioconductor)
-        - Bash Scripting
+        - Python (Pixi, UV) 
+        - R (Bioconductor)
+        - Bash \& Conda
         - Nextflow Pipelines
         - Machine Learning \& LLMs
 
     - name: Data Visualization
       items:
-        - R Shiny (Advanced)
+        - R Shiny \& HTML
         - Quarto \& RMarkdown
-        - HTML Reports
+        - Plotly, ggplot \& D3.js
 
     - name: Education
       items:
@@ -164,11 +161,13 @@ tibble::tribble(
     "ViralQuest Bioinformatics Pipeline", "Creator and Lead Developer",
         "Engineered an automated, scalable Python package (published on PyPI) for end-to-end pathogen sequence identification.
         Integrated advanced sequence alignment and data mining methodologies across public genomic databases.
-        Maintained rigorous technical documentation, strict version control, and modular coding standards for cross-functional scientific use."
+        Maintained rigorous technical documentation, strict version control, and modular coding standards for cross-functional scientific use.
+        The project also utilizes D3.js resources to create a final HTML report to the final user."
     ,
     "Scalable Data Visualization Frameworks", "Developer",
         "Built dynamic R Shiny applications designed to process, analyze, and visualize high-throughput epidemiological datasets in real-time.
-        Ensured compliance with data integrity standards while translating raw statistical outputs into accessible formats for non-technical audiences."
+        Ensured compliance with data integrity standards while translating raw statistical outputs into accessible formats for non-technical audiences.
+        The project uses a combination of bslib/custom CSS to styling, shinymanager for authentication and the package renv combined with docker to version control and reproducibility."
     ,
     "Multi-omics Data Integration \\& Functional Genomics", "Genomic Analyst",
 
