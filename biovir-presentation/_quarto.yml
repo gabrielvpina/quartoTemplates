@@ -1,0 +1,131 @@
+#===============================================================================
+# BIOVIR LAB — CONFIGURAÇÃO COMPARTILHADA
+#-------------------------------------------------------------------------------
+# Tudo o que está aqui vale para TODOS os .qmd desta pasta.
+# Um arquivo novo de apresentação só precisa de título, autor e data.
+#
+# Renderizar:  quarto render                 (todos os .qmd)
+#              quarto render minha.qmd       (um só)
+# Pré-visualizar com recarga automática:
+#              quarto preview minha.qmd
+#===============================================================================
+
+project:
+  type: default
+  # Sem `output-dir`: o .html sai ao lado do .qmd, então os caminhos relativos
+  # para assets/ e fonts/ funcionam direto. Se mudar isso, ajuste também o
+  # $font-path em styles/fonts.scss.
+  render:
+    - "*.qmd"
+
+# Idioma da interface (datas, "Figura", callouts...)
+lang: pt
+
+format:
+  revealjs:
+
+    #-- Identidade visual ----------------------------------------------------
+    # Ordem importa: variáveis -> fontes -> base -> componentes.
+    theme:
+      - default
+      - styles/variaveis.scss
+      - styles/fonts.scss
+      - styles/biovir.scss
+      - styles/componentes.scss
+
+    # Cápsula viral fixa no canto inferior direito de todos os slides.
+    logo: assets/logo-virus.svg
+
+    # Logo vertical na capa (entra como imagem de fundo do slide de título).
+    title-slide-attributes:
+      data-background-image: assets/logo-vertical-center.svg
+      data-background-size: 210px
+      data-background-position: 11% 50%
+      data-background-color: "#ffffff"
+
+    footer: "**Biovir Lab** · Laboratório de Bioinformática e Virologia"
+
+    #-- Geometria e navegação -----------------------------------------------
+    width: 1050
+    height: 700
+    margin: 0.06
+    min-scale: 0.2
+    max-scale: 2.0
+
+    center: false            # conteúdo alinhado ao topo (mais previsível)
+
+    # Um "# Título" cria uma PILHA VERTICAL com os "##" da seção. Em modo
+    # `linear` as setas ←/→ percorrem todos os slides na ordem do arquivo,
+    # que é o que se espera ao apresentar (sem isso, a seta direita pula a
+    # seção inteira e voltar dá a impressão de retornar ao começo).
+    navigation-mode: linear
+
+    slide-number: c/t        # "3/24" no canto
+    show-slide-number: all
+    hash: true               # URL acompanha o slide (bom para compartilhar)
+    history: true
+    transition: fade
+    transition-speed: fast
+    background-transition: fade
+    incremental: false       # use {.incremental} slide a slide quando quiser
+
+    #-- Recursos de apresentação --------------------------------------------
+    menu:
+      side: right
+      numbers: true
+    overview: true           # tecla O = visão geral dos slides
+
+    # NOTA: o plugin `chalkboard` (teclas B/C, desenhar sobre o slide) NÃO é
+    # compatível com `embed-resources: true` — o Quarto aborta a renderização.
+    # Se você preferir o quadro-branco ao arquivo único, troque
+    # `embed-resources` para false e descomente as quatro linhas abaixo.
+    #
+    # chalkboard:
+    #   buttons: false
+    #   theme: whiteboard
+    #   boardmarker-width: 4
+    preview-links: auto
+    link-external-newwindow: true
+    touch: true
+
+    #-- Código ---------------------------------------------------------------
+    highlight-style: github
+    code-line-numbers: true
+    code-copy: true
+    code-overflow: wrap
+    code-block-height: 520px
+
+    #-- Figuras --------------------------------------------------------------
+    fig-align: center
+    fig-cap-location: bottom
+    fig-responsive: true
+
+    #-- Autoria / metadados --------------------------------------------------
+    date-format: "DD [de] MMMM [de] YYYY"
+
+    # SELF-CONTAINED: fontes, logos, fotos, CSS e JavaScript entram todos
+    # dentro do .html. O arquivo final é único, abre com duplo clique em
+    # qualquer computador e funciona sem internet — não depende da pasta
+    # *_files nem desta pasta do projeto.
+    # Custo: o .html fica com alguns MB e a renderização demora mais.
+    embed-resources: true
+
+# Impede que headings dentro de .cartao/.numero/.destaque virem slides.
+# Veja a explicação completa dentro do próprio arquivo.
+filters:
+  - config/titulos-em-blocos.lua
+
+# Execução de código (R / Python) — vale para todos os documentos.
+execute:
+  echo: true        # mostra o código nos slides
+  warning: false
+  message: false
+  freeze: auto      # não re-executa chunks sem alteração
+
+# Diagramas mermaid na paleta do laboratório.
+mermaid:
+  theme: neutral
+
+# Bibliografia opcional: descomente se for citar com [@chave]
+# bibliography: config/referencias.bib
+# csl: config/abnt.csl

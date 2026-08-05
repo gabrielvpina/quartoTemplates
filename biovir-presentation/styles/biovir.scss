@@ -1,0 +1,330 @@
+/*==============================================================================
+  BIOVIR LAB — TEMA BASE
+  ------------------------------------------------------------------------------
+  Tipografia, listas, tabelas, código, rodapé e cromo do reveal.js.
+  Não coloque cores literais aqui: use as variáveis de `variaveis.scss`.
+==============================================================================*/
+
+/*-- scss:rules --*/
+
+// ╔══════════════════════════════════════════════════════════════════════════╗
+// ║ BASE                                                                     ║
+// ╚══════════════════════════════════════════════════════════════════════════╝
+
+.reveal {
+  font-family: $fonte-texto;
+  font-weight: 400;
+  letter-spacing: -0.005em;
+  -webkit-font-smoothing: antialiased;
+
+  .slides {
+    text-align: left;
+  }
+
+  // Números tabulares: colunas de tabela e listas numeradas ficam alinhadas.
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+// ╔══════════════════════════════════════════════════════════════════════════╗
+// ║ TÍTULOS                                                                  ║
+// ╚══════════════════════════════════════════════════════════════════════════╝
+
+.reveal {
+  h1, h2, h3, h4, h5, h6 {
+    font-family: $fonte-titulo;
+    color: $biovir-azul;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+    margin-bottom: 0.5em;
+  }
+
+  // Título de slide de conteúdo: filete cinza de largura total + acento curto.
+  .slides section > h2 {
+    position: relative;
+    padding-bottom: 0.28em;
+    margin-bottom: 0.72em;
+    border-bottom: 2px solid $biovir-cinza-claro;
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      width: 2.4em;
+      height: 4px;
+      background: linear-gradient(90deg, $biovir-azul, $biovir-azul-claro);
+      border-radius: 2px;
+    }
+  }
+
+  h3 {
+    color: $biovir-azul-claro;
+    font-weight: 600;
+    margin-top: 0.9em;
+  }
+
+  h4 {
+    color: $biovir-cinza;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+}
+
+// ╔══════════════════════════════════════════════════════════════════════════╗
+// ║ TEXTO, LISTAS E CITAÇÕES                                                 ║
+// ╚══════════════════════════════════════════════════════════════════════════╝
+
+.reveal {
+  p { line-height: $presentation-line-height; }
+
+  strong, b { font-weight: 650; color: $biovir-azul-escuro; }
+  em { color: inherit; }
+
+  // Marcadores em azul, sem depender de emoji ou imagem.
+  ul {
+    list-style: none;
+    padding-left: 1.15em;
+
+    li {
+      position: relative;
+      margin-bottom: 0.42em;
+
+      &::before {
+        content: "";
+        position: absolute;
+        left: -0.95em;
+        top: 0.52em;
+        width: 0.34em;
+        height: 0.34em;
+        border-radius: 50%;
+        background: $biovir-azul-claro;
+      }
+    }
+
+    // Segundo nível: círculo vazado, um pouco menor.
+    ul li::before {
+      background: transparent;
+      border: 2px solid $biovir-azul-borda;
+      width: 0.30em;
+      height: 0.30em;
+    }
+  }
+
+  ol {
+    padding-left: 1.3em;
+    li {
+      margin-bottom: 0.42em;
+      &::marker {
+        color: $biovir-azul;
+        font-family: $fonte-titulo;
+        font-weight: 700;
+      }
+    }
+  }
+
+  blockquote {
+    border: none;
+    border-left: 4px solid $biovir-azul-claro;
+    background: $biovir-azul-tenue;
+    box-shadow: none;
+    margin: 0.8em 0;
+    padding: 0.7em 1em;
+    font-style: normal;
+    color: $biovir-azul-escuro;
+
+    p:last-child { margin-bottom: 0; }
+  }
+
+  a {
+    text-decoration: none;
+    border-bottom: 1px solid rgba($biovir-azul-claro, 0.45);
+    transition: border-color 0.15s ease, color 0.15s ease;
+
+    &:hover { border-bottom-color: $biovir-azul; }
+  }
+}
+
+// ╔══════════════════════════════════════════════════════════════════════════╗
+// ║ CÓDIGO                                                                   ║
+// ╚══════════════════════════════════════════════════════════════════════════╝
+
+.reveal {
+  code, pre, kbd, samp { font-family: $fonte-codigo; }
+
+  // Código inline
+  p code, li code, td code {
+    background: $biovir-azul-tenue;
+    color: $biovir-azul-escuro;
+    padding: 0.08em 0.32em;
+    border-radius: 4px;
+    font-size: 0.88em;
+  }
+
+  div.sourceCode {
+    background: $biovir-azul-tenue;
+    border: 1px solid $biovir-azul-borda;
+    border-radius: 8px;
+    margin: 0.6em 0;
+    overflow: hidden;
+  }
+
+  pre {
+    box-shadow: none;
+    margin: 0;
+
+    code {
+      background: transparent;
+      padding: 0.75em 0.9em;
+      border-radius: 0;
+      max-height: 520px;
+      line-height: 1.42;
+    }
+  }
+
+  // Saída de chunks R/Python
+  pre:not(.sourceCode) > code,
+  .cell-output pre code {
+    background: $biovir-branco;
+    border: 1px dashed $biovir-azul-borda;
+    border-radius: 8px;
+    color: $biovir-cinza;
+  }
+
+  // Destaque de linha (code-line-numbers)
+  .highlight-line { background: rgba($biovir-azul-claro, 0.16); }
+}
+
+// ╔══════════════════════════════════════════════════════════════════════════╗
+// ║ TABELAS                                                                  ║
+// ╚══════════════════════════════════════════════════════════════════════════╝
+
+.reveal table {
+  border-collapse: collapse;
+  font-size: 0.82em;
+  width: 100%;
+
+  th {
+    font-family: $fonte-titulo;
+    font-weight: 600;
+    color: $biovir-branco;
+    background: $biovir-azul;
+    border: none;
+    padding: 0.45em 0.7em;
+    text-align: left;
+  }
+
+  td {
+    border: none;
+    border-bottom: 1px solid $biovir-cinza-claro;
+    padding: 0.38em 0.7em;
+  }
+
+  tbody tr:nth-child(even) { background: rgba($biovir-azul-tenue, 0.6); }
+  tbody tr:last-child td   { border-bottom: 2px solid $biovir-azul-borda; }
+}
+
+// ╔══════════════════════════════════════════════════════════════════════════╗
+// ║ FIGURAS                                                                  ║
+// ╚══════════════════════════════════════════════════════════════════════════╝
+
+.reveal {
+  figure { margin: 0.4em 0; }
+
+  figcaption,
+  .figure-caption {
+    font-size: 0.55em;
+    color: $biovir-cinza;
+    line-height: 1.35;
+    margin-top: 0.4em;
+  }
+
+  // Imagens não ganham moldura por padrão; use .moldura quando quiser.
+  section img { border: none; box-shadow: none; background: transparent; }
+
+  img.moldura {
+    border: 1px solid $biovir-cinza-claro;
+    border-radius: 10px;
+    box-shadow: 0 6px 22px rgba($biovir-tinta, 0.10);
+  }
+}
+
+// ╔══════════════════════════════════════════════════════════════════════════╗
+// ║ CROMO DO REVEAL: rodapé, logo, paginação, barra de progresso, controles   ║
+// ╚══════════════════════════════════════════════════════════════════════════╝
+
+.reveal {
+  .footer,
+  .footer p {
+    font-family: $fonte-texto;
+    font-size: 0.42em;
+    color: $biovir-cinza;
+    letter-spacing: 0.01em;
+  }
+
+  // Cápsula viral no canto — elemento permanente da identidade.
+  .slide-logo {
+    max-height: 62px !important;
+    bottom: 14px !important;
+    right: 18px !important;
+    opacity: 0.9;
+  }
+
+  .slide-number {
+    font-family: $fonte-titulo;
+    font-size: 0.42em;
+    font-weight: 500;
+    color: $biovir-cinza;
+    background: transparent;
+
+    a { border-bottom: none; color: inherit; }
+  }
+
+  .progress {
+    height: 4px;
+    color: $biovir-azul-claro;
+    background: $biovir-cinza-claro;
+
+    span { background: linear-gradient(90deg, $biovir-azul, $biovir-azul-claro); }
+  }
+
+  .controls { color: $biovir-azul-claro; }
+}
+
+// Linha decorativa de topo, presente em todos os slides de conteúdo.
+.reveal-viewport::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, $biovir-azul 0%, $biovir-azul-claro 100%);
+  z-index: 40;
+  pointer-events: none;
+}
+
+// ╔══════════════════════════════════════════════════════════════════════════╗
+// ║ FUNDOS ESCUROS (slides de divisão com background-color azul)             ║
+// ╚══════════════════════════════════════════════════════════════════════════╝
+
+.reveal .has-dark-background {
+  &, p, li, h1, h2, h3, h4 { color: $biovir-branco; }
+
+  h2 {
+    border-bottom-color: rgba($biovir-branco, 0.25);
+    &::after { background: $biovir-branco; }
+  }
+
+  ul li::before { background: rgba($biovir-branco, 0.85); }
+  strong { color: $biovir-branco; }
+
+  a { color: $biovir-branco; border-bottom-color: rgba($biovir-branco, 0.5); }
+}
+
+// ╔══════════════════════════════════════════════════════════════════════════╗
+// ║ IMPRESSÃO / EXPORTAÇÃO PARA PDF                                          ║
+// ╚══════════════════════════════════════════════════════════════════════════╝
+
+@media print {
+  .reveal .slide-logo { opacity: 1; }
+  .reveal-viewport::before { display: none; }
+}

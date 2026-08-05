@@ -1,0 +1,511 @@
+/*==============================================================================
+  BIOVIR LAB — COMPONENTES
+  ------------------------------------------------------------------------------
+  Blocos reutilizáveis que você aplica com classes no .qmd, por exemplo:
+
+      ::: {.destaque}
+      Texto em caixa de destaque.
+      :::
+
+  Consulte `tutorial.qmd` para ver cada componente renderizado.
+==============================================================================*/
+
+/*-- scss:rules --*/
+
+// ╔══════════════════════════════════════════════════════════════════════════╗
+// ║ 1. SLIDE DE CAPA                                                         ║
+// ╚══════════════════════════════════════════════════════════════════════════╝
+//
+// A logo vertical entra como `background-image` (veja title-slide-attributes
+// no YAML). Aqui só empurramos o texto para a direita, liberando o espaço.
+
+.reveal #title-slide {
+  text-align: left;
+  padding-left: 33%;
+  padding-right: 4%;
+
+  .title {
+    font-family: $fonte-titulo;
+    font-size: 1.95em;
+    font-weight: 700;
+    line-height: 1.08;
+    color: $biovir-azul;
+    letter-spacing: -0.028em;
+    margin-bottom: 0.28em;
+  }
+
+  .subtitle {
+    font-family: $fonte-texto;
+    font-size: 0.92em;
+    font-weight: 400;
+    color: $biovir-cinza;
+    line-height: 1.35;
+    margin-bottom: 0.9em;
+    // Filete de acento acima do subtítulo
+    padding-top: 0.7em;
+    border-top: 3px solid $biovir-azul-claro;
+    display: inline-block;
+  }
+
+  .quarto-title-authors,
+  .author,
+  .quarto-title-author-name {
+    font-family: $fonte-texto;
+    font-size: 0.62em;
+    font-weight: 600;
+    color: $biovir-tinta;
+    justify-content: flex-start;
+    text-align: left;
+    padding-left: 0;
+  }
+
+  .quarto-title-author { padding-left: 0; padding-right: 1.6em; }
+
+  .quarto-title-author-email,
+  .institute,
+  .quarto-title-affiliation {
+    font-size: 0.85em;
+    font-weight: 400;
+    color: $biovir-cinza;
+  }
+
+  .date {
+    font-family: $fonte-titulo;
+    font-size: 0.52em;
+    font-weight: 500;
+    color: $biovir-azul-claro;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-top: 0.9em;
+  }
+
+  // Na capa a logo grande já representa a marca; a cápsula do canto sai.
+  & ~ * .slide-logo { display: none; }
+}
+
+// Enquanto a capa está ativa, some com o "cromo": a logo vertical já basta.
+body:has(#title-slide.present) .reveal {
+  .slide-logo,
+  .footer,
+  .slide-number { display: none; }
+}
+
+// ╔══════════════════════════════════════════════════════════════════════════╗
+// ║ 2. SLIDES DE DIVISÃO DE SEÇÃO                                            ║
+// ╚══════════════════════════════════════════════════════════════════════════╝
+//
+//   # Metodologia {.divisor background-color="#304ea1"}    -> faixa azul
+//   # Metodologia {.divisor-claro}                          -> fundo branco
+
+.reveal section.divisor {
+  h1 {
+    color: $biovir-branco;
+    font-size: 2.1em;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    border: none;
+    margin-bottom: 0.2em;
+  }
+
+  p, li { color: rgba($biovir-branco, 0.86); font-size: 0.82em; }
+
+  // Marcador tipográfico da seção
+  h1::before {
+    content: "";
+    display: block;
+    width: 3em;
+    height: 5px;
+    background: $biovir-branco;
+    border-radius: 3px;
+    margin-bottom: 0.42em;
+    opacity: 0.9;
+  }
+}
+
+.reveal section.divisor-claro {
+  h1 {
+    color: $biovir-azul;
+    font-size: 2.1em;
+
+    &::before {
+      content: "";
+      display: block;
+      width: 3em;
+      height: 5px;
+      background: linear-gradient(90deg, $biovir-azul, $biovir-azul-claro);
+      border-radius: 3px;
+      margin-bottom: 0.42em;
+    }
+  }
+
+  p, li { color: $biovir-cinza; font-size: 0.82em; }
+}
+
+// ╔══════════════════════════════════════════════════════════════════════════╗
+// ║ 3. CAIXAS DE DESTAQUE                                                    ║
+// ╚══════════════════════════════════════════════════════════════════════════╝
+
+.reveal {
+  // ::: {.destaque}  — ideia central, conclusão parcial
+  .destaque {
+    background: $biovir-azul-tenue;
+    border-left: 5px solid $biovir-azul;
+    border-radius: 0 10px 10px 0;
+    padding: 0.7em 1em;
+    margin: 0.7em 0;
+    color: $biovir-azul-escuro;
+
+    > :first-child { margin-top: 0; }
+    > :last-child  { margin-bottom: 0; }
+  }
+
+  // ::: {.caixa}  — bloco neutro com contorno
+  .caixa {
+    background: $biovir-branco;
+    border: 1px solid $biovir-azul-borda;
+    border-radius: 12px;
+    padding: 0.75em 1em;
+    margin: 0.7em 0;
+    box-shadow: 0 2px 10px rgba($biovir-tinta, 0.05);
+
+    > :first-child { margin-top: 0; }
+    > :last-child  { margin-bottom: 0; }
+  }
+
+  // ::: {.destaque-forte}  — afirmação de máximo peso
+  .destaque-forte {
+    background: linear-gradient(135deg, $biovir-azul, $biovir-azul-claro);
+    color: $biovir-branco;
+    border-radius: 12px;
+    padding: 0.85em 1.1em;
+    margin: 0.7em 0;
+    font-weight: 500;
+
+    strong, a, h3, h4 { color: $biovir-branco; }
+    > :first-child { margin-top: 0; }
+    > :last-child  { margin-bottom: 0; }
+  }
+}
+
+// ╔══════════════════════════════════════════════════════════════════════════╗
+// ║ 3b. TÍTULOS DENTRO DE BLOCOS                                             ║
+// ╚══════════════════════════════════════════════════════════════════════════╝
+//
+// O filtro config/titulos-em-blocos.lua converte
+//     ::: {.cartao}
+//     #### Coleta
+// em <span class="titulo-bloco titulo-4">, para que o heading NÃO vire um
+// slide. Estas regras devolvem a aparência de título ao span.
+
+.reveal .titulo-bloco {
+  display: block;
+  font-family: $fonte-titulo;
+  font-weight: 700;
+  color: $biovir-azul;
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+  margin-bottom: 0.35em;
+
+  &.titulo-3 { font-size: 1.05em; color: $biovir-azul-claro; font-weight: 600; }
+  &.titulo-4 { font-size: 0.95em; }
+  &.titulo-5,
+  &.titulo-6 {
+    font-size: 0.8em;
+    color: $biovir-cinza;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+}
+
+// O parágrafo que embrulha o span não deve criar espaço extra.
+.reveal p:has(> .titulo-bloco:only-child) { margin: 0 0 0.35em 0; }
+
+.reveal .destaque-forte .titulo-bloco { color: $biovir-branco; }
+
+// ╔══════════════════════════════════════════════════════════════════════════╗
+// ║ 4. CARTÕES EM GRADE                                                      ║
+// ╚══════════════════════════════════════════════════════════════════════════╝
+//
+//   ::: {.cartoes}
+//   ::: {.cartao}
+//   #### Título
+//   Texto
+//   :::
+//   ::: {.cartao}  ...  :::
+//   :::
+
+.reveal .cartoes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  align-content: start;     // cartões não esticam para preencher a altura
+  gap: 0.6em;
+  margin: 0.7em 0;
+}
+
+.reveal .cartao {
+  background: $biovir-branco;
+  border: 1px solid $biovir-cinza-claro;
+  border-top: 4px solid $biovir-azul-claro;
+  border-radius: 10px;
+  padding: 0.75em 0.9em;
+  font-size: 0.78em;
+  line-height: 1.4;
+
+  h3, h4, .titulo-bloco {
+    margin: 0 0 0.4em 0;
+    font-size: 1.02em;
+    color: $biovir-azul;
+    text-transform: none;
+    letter-spacing: -0.01em;
+  }
+
+  > :last-child { margin-bottom: 0; }
+
+  ul { padding-left: 0.9em; }
+}
+
+// ╔══════════════════════════════════════════════════════════════════════════╗
+// ║ 5. NÚMEROS E RÓTULOS                                                     ║
+// ╚══════════════════════════════════════════════════════════════════════════╝
+
+.reveal {
+  // ::: {.numero}
+  // ## 1.245
+  // amostras sequenciadas
+  // :::
+  .numero {
+    text-align: center;
+
+    // CUIDADO: o valor pode chegar de duas formas —
+    //   a) "### 1.245", que o filtro converte em <p><span class="titulo-bloco">
+    //   b) "1.245" solto, que vira <p>
+    // Se as duas regras casarem no <p> E no <span>, o font-size multiplica
+    // (2,2em × 2,2em ≈ 160px) e os números se sobrepõem. Por isso o <p> que
+    // apenas embrulha o span é neutralizado logo abaixo.
+    h2, h3, .titulo-bloco, > p:first-child {
+      font-family: $fonte-titulo;
+      font-size: 2.2em;
+      font-weight: 700;
+      line-height: 1;
+      color: $biovir-azul;
+      border: none;
+      margin: 0 0 0.15em 0;
+      padding: 0;
+
+      &::after { display: none; }
+    }
+
+    // Parágrafo-invólucro: não escala, quem escala é o span dentro dele.
+    > p:has(> .titulo-bloco) {
+      font-size: 1em;
+      line-height: 1;
+      margin: 0 0 0.15em 0;
+    }
+
+    p:last-child {
+      font-size: 0.6em;
+      font-family: $fonte-texto;
+      font-weight: 400;
+      color: $biovir-cinza;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      line-height: 1.25;
+      margin: 0;
+    }
+  }
+
+  // [texto]{.rotulo} — etiqueta em pílula
+  .rotulo {
+    display: inline-block;
+    font-family: $fonte-titulo;
+    font-size: 0.55em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: $biovir-azul;
+    background: $biovir-azul-tenue;
+    border: 1px solid $biovir-azul-borda;
+    border-radius: 999px;
+    padding: 0.22em 0.7em;
+    vertical-align: middle;
+  }
+
+  // [texto]{.marca} — grifo sutil, no lugar de negrito colorido
+  .marca {
+    background: linear-gradient(180deg, transparent 58%, rgba($biovir-azul-claro, 0.28) 58%);
+    padding: 0 0.1em;
+  }
+}
+
+// ╔══════════════════════════════════════════════════════════════════════════╗
+// ║ 6. CALLOUTS DO QUARTO                                                    ║
+// ╚══════════════════════════════════════════════════════════════════════════╝
+
+.reveal .callout {
+  border-radius: 10px;
+  border-width: 1px;
+  font-size: 0.82em;
+  margin: 0.6em 0;
+
+  .callout-title {
+    font-family: $fonte-titulo;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    padding: 0.35em 0.7em;
+  }
+
+  .callout-body { padding: 0.5em 0.7em; }
+
+  &.callout-note {
+    border-left-color: $biovir-azul !important;
+    .callout-title { background: $biovir-azul-tenue; color: $biovir-azul-escuro; }
+  }
+
+  &.callout-tip {
+    border-left-color: $biovir-azul-claro !important;
+    .callout-title { background: rgba($biovir-azul-claro, 0.12); color: $biovir-azul-escuro; }
+  }
+}
+
+// ╔══════════════════════════════════════════════════════════════════════════╗
+// ║ 7. SLIDES FINAIS DA EQUIPE                                               ║
+// ╚══════════════════════════════════════════════════════════════════════════╝
+//
+// Existem duas versões:
+//
+//   .agradecimentos — título + lista de nomes à esquerda, foto à direita.
+//                     É o slide de créditos completo (ver modelo).
+//   .equipe         — fecho curto ("Obrigado!"), foto como imagem de fundo.
+
+// ── 7a. Créditos com a lista de nomes ────────────────────────────────────
+.reveal section.agradecimentos {
+  h1, h2 {
+    font-size: 1.55em;
+    color: $biovir-azul;
+    border: none;
+    padding-bottom: 0;
+    margin-bottom: 0.45em;
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -0.16em;
+      width: 2.4em;
+      height: 4px;
+      background: linear-gradient(90deg, $biovir-azul, $biovir-azul-claro);
+      border-radius: 2px;
+      display: block;
+    }
+  }
+
+  // A lista de nomes: duas colunas, sem marcadores.
+  .nomes {
+    ul {
+      column-count: 2;
+      column-gap: 1.4em;
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+    }
+
+    li {
+      font-size: 0.40em;
+      line-height: 1.45;
+      margin-bottom: 0.15em;
+      color: $biovir-tinta;
+      break-inside: avoid;
+      padding-left: 0.8em;
+      text-indent: -0.8em;    // nome longo que quebra alinha na 2ª linha
+
+      &::before { display: none; }   // sem bolinha: é uma lista de créditos
+    }
+  }
+
+  // Uma coluna só, quando forem poucos nomes
+  .nomes-1col ul { column-count: 1; }
+
+  // A foto é retrato (proporção ~0,83). Sem teto de altura ela passa dos
+  // ~530 px que sobram abaixo do título e o reveal corta o que excede.
+  .foto-equipe img {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    max-height: 500px;
+    margin: 0 auto;
+    border-radius: 10px;
+  }
+
+  p { font-size: 0.6em; color: $biovir-cinza; line-height: 1.4; }
+}
+
+// ── 7b. Fecho curto com a foto ao fundo ──────────────────────────────────
+.reveal section.equipe {
+  padding-right: 44%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+
+  h1, h2 {
+    font-size: 1.75em;
+    color: $biovir-azul;
+    border: none;
+    margin-bottom: 0.3em;
+    &::after { display: none; }
+  }
+
+  p { font-size: 0.78em; color: $biovir-cinza; line-height: 1.45; }
+
+  .rotulo { margin-bottom: 0.8em; }
+}
+
+// ╔══════════════════════════════════════════════════════════════════════════╗
+// ║ 8. UTILITÁRIOS                                                           ║
+// ╚══════════════════════════════════════════════════════════════════════════╝
+
+.reveal {
+  .centro    { text-align: center; }
+  .direita   { text-align: right; }
+  .pequeno   { font-size: 0.78em; }
+  .menor     { font-size: 0.62em; }
+  .legenda   { font-size: 0.55em; color: $biovir-cinza; line-height: 1.35; }
+  .cinza     { color: $biovir-cinza; }
+  .azul      { color: $biovir-azul; }
+  .azul-claro{ color: $biovir-azul-claro; }
+
+  .respiro   { margin-top: 1.2em; }
+  .sem-marcador ul { list-style: none; padding-left: 0; li::before { display: none; } }
+
+  // ── COLUNAS ────────────────────────────────────────────────────────────
+  // O Quarto renderiza .column como `inline-block` (e não flex), e o
+  // reveal.js NÃO define box-sizing: border-box globalmente. Ou seja: em
+  // content-box, qualquer padding soma POR FORA da largura declarada, os
+  // 50% + 50% passam de 100% e a segunda coluna quebra para a linha
+  // debaixo — deixando meia tela vazia.
+  //
+  // border-box resolve na raiz: padding e borda passam a caber dentro da
+  // largura pedida. Não coloque padding/border em .column sem isto.
+  .columns > .column {
+    box-sizing: border-box;
+    vertical-align: top;
+  }
+
+  // O Quarto já dá calha entre colunas, mas exclui ul/ol da regra.
+  // Aqui devolvemos o mesmo respiro para listas.
+  .columns > .column > ul,
+  .columns > .column > ol { margin-left: 0.25rem; margin-right: 0.25rem; }
+
+  .columns > .column:first-child > ul,
+  .columns > .column:first-child > ol { margin-left: 0; margin-right: 0.5rem; }
+
+  .columns > .column:last-child > ul,
+  .columns > .column:last-child > ol { margin-left: 0.5rem; margin-right: 0; }
+
+  // Linha separadora fina
+  hr {
+    border: none;
+    border-top: 2px solid $biovir-cinza-claro;
+    margin: 0.9em 0;
+  }
+}

@@ -1,0 +1,90 @@
+/*==============================================================================
+  BIOVIR LAB — VARIÁVEIS DE DESIGN  (design tokens)
+  ------------------------------------------------------------------------------
+  ESTE É O ÚNICO ARQUIVO QUE VOCÊ PRECISA EDITAR PARA MUDAR A APARÊNCIA.
+  Cores, fontes e tamanhos vivem aqui; os demais .scss apenas os consomem.
+
+  Regra de ouro: fundo branco, azul como acento. Nada de fundo colorido em
+  slides de conteúdo — só nos slides de divisão de seção.
+==============================================================================*/
+
+/*-- scss:defaults --*/
+
+// ╔══════════════════════════════════════════════════════════════════════════╗
+// ║ 1. CORES DA MARCA                                                        ║
+// ╚══════════════════════════════════════════════════════════════════════════╝
+
+$biovir-azul:        #304ea1 !default;  // primária  — títulos, barras, links
+$biovir-azul-claro:  #326db5 !default;  // secundária — destaques, hover, ícones
+
+// Tons derivados (não são cores novas: são o mesmo azul diluído/escurecido)
+$biovir-azul-escuro: #1f3369 !default;  // texto sobre fundo azul-claro
+$biovir-azul-tenue:  #eef3fb !default;  // fundo de caixas e código
+$biovir-azul-borda:  #cfdcf1 !default;  // bordas suaves
+
+// Neutros
+$biovir-tinta:       #16233f !default;  // cor do texto corrido
+$biovir-cinza:       #5b6880 !default;  // texto secundário, legendas
+$biovir-cinza-claro: #e6ebf4 !default;  // linhas e separadores
+$biovir-branco:      #ffffff !default;
+
+// ╔══════════════════════════════════════════════════════════════════════════╗
+// ║ 2. TIPOGRAFIA                                                            ║
+// ╚══════════════════════════════════════════════════════════════════════════╝
+//
+// Para TROCAR de fonte:
+//   1. coloque os .woff2 em fonts/
+//   2. declare o @font-face em styles/fonts.scss
+//   3. mude os nomes aqui embaixo
+//
+// Sugestões alternativas já testadas para títulos (impacto + apelo científico):
+//   "Archivo", "Chivo", "IBM Plex Sans Condensed", "Barlow Condensed"
+
+$fonte-titulo:  "Space Grotesk", "Helvetica Neue", Arial, sans-serif !default;
+$fonte-texto:   "Inter", "Helvetica Neue", Arial, sans-serif !default;
+$fonte-codigo:  "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace !default;
+
+// ╔══════════════════════════════════════════════════════════════════════════╗
+// ║ 3. MAPEAMENTO PARA O REVEAL.JS  (não costuma precisar de ajuste)          ║
+// ╚══════════════════════════════════════════════════════════════════════════╝
+
+// --- Cores base ---------------------------------------------------------
+$body-bg:            $biovir-branco !default;
+$body-color:         $biovir-tinta !default;
+$link-color:         $biovir-azul-claro !default;
+$link-color-hover:   $biovir-azul !default;
+$selection-bg:       rgba($biovir-azul-claro, 0.25) !default;
+$selection-color:    $biovir-tinta !default;
+$border-color:       $biovir-cinza-claro !default;
+
+// --- Famílias -----------------------------------------------------------
+$font-family-sans-serif: $fonte-texto !default;
+$font-family-monospace:  $fonte-codigo !default;
+$presentation-heading-font: $fonte-titulo !default;
+
+// --- Escala tipográfica -------------------------------------------------
+// 33px na raiz equilibra "cabe conteúdo" com "dá pra ler do fundo da sala".
+// Suba para 36-38px em auditórios grandes; desça para 30px em aulas densas.
+$presentation-font-size-root: 33px !default;
+$presentation-line-height:    1.45 !default;
+
+$presentation-h1-font-size: 2.10em !default;  // slide de divisão de seção
+$presentation-h2-font-size: 1.45em !default;  // título do slide de conteúdo
+$presentation-h3-font-size: 1.05em !default;  // subtítulo dentro do slide
+$presentation-h4-font-size: 0.90em !default;
+
+$presentation-heading-color:        $biovir-azul !default;
+$presentation-heading-font-weight:  700 !default;
+$presentation-heading-line-height:  1.15 !default;
+$presentation-heading-text-transform: none !default;
+$presentation-heading-text-shadow:  none !default;
+$presentation-h1-text-shadow:       none !default;
+
+$presentation-block-margin: 14px !default;
+
+// --- Código -------------------------------------------------------------
+$code-block-font-size:     0.60em !default;
+$code-block-bg:            $biovir-azul-tenue !default;
+$code-block-border-color:  $biovir-azul-borda !default;
+$code-color:               $biovir-azul-escuro !default;   // código inline
+$code-bg:                  $biovir-azul-tenue !default;
