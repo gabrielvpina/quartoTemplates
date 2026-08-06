@@ -187,15 +187,27 @@ body:has(#title-slide.present) .reveal {
 // ║ 3. CAIXAS DE DESTAQUE                                                    ║
 // ╚══════════════════════════════════════════════════════════════════════════╝
 
+// As quatro caixas leem as MESMAS variáveis CSS. Trocar a cor de uma delas
+// é redefinir `--cor` — por classe pronta ou inline. Ver a seção 4b.
 .reveal {
+  .destaque,
+  .caixa,
+  .cartao,
+  .destaque-forte {
+    --cor:        #{$biovir-azul};        // acento: borda, barra, título
+    --cor-clara:  #{$biovir-azul-claro};  // 2º tom (só no gradiente)
+    --cor-fundo:  #{$biovir-azul-tenue};  // preenchimento suave
+    --cor-borda:  #{$biovir-azul-borda};  // contorno fino
+  }
+
   // ::: {.destaque}  — ideia central, conclusão parcial
   .destaque {
-    background: $biovir-azul-tenue;
-    border-left: 5px solid $biovir-azul;
+    background: var(--cor-fundo);
+    border-left: 5px solid var(--cor);
     border-radius: 0 10px 10px 0;
     padding: 0.7em 1em;
     margin: 0.7em 0;
-    color: $biovir-azul-escuro;
+    color: var(--cor);
 
     > :first-child { margin-top: 0; }
     > :last-child  { margin-bottom: 0; }
@@ -204,11 +216,13 @@ body:has(#title-slide.present) .reveal {
   // ::: {.caixa}  — bloco neutro com contorno
   .caixa {
     background: $biovir-branco;
-    border: 1px solid $biovir-azul-borda;
+    border: 1px solid var(--cor-borda);
     border-radius: 12px;
     padding: 0.75em 1em;
     margin: 0.7em 0;
     box-shadow: 0 2px 10px rgba($biovir-tinta, 0.05);
+
+    strong, .titulo-bloco, h3, h4 { color: var(--cor); }
 
     > :first-child { margin-top: 0; }
     > :last-child  { margin-bottom: 0; }
@@ -216,7 +230,7 @@ body:has(#title-slide.present) .reveal {
 
   // ::: {.destaque-forte}  — afirmação de máximo peso
   .destaque-forte {
-    background: linear-gradient(135deg, $biovir-azul, $biovir-azul-claro);
+    background: linear-gradient(135deg, var(--cor), var(--cor-clara));
     color: $biovir-branco;
     border-radius: 12px;
     padding: 0.85em 1.1em;
@@ -287,7 +301,7 @@ body:has(#title-slide.present) .reveal {
 .reveal .cartao {
   background: $biovir-branco;
   border: 1px solid $biovir-cinza-claro;
-  border-top: 4px solid $biovir-azul-claro;
+  border-top: 4px solid var(--cor);
   border-radius: 10px;
   padding: 0.75em 0.9em;
   font-size: 0.78em;
@@ -296,7 +310,7 @@ body:has(#title-slide.present) .reveal {
   h3, h4, .titulo-bloco {
     margin: 0 0 0.4em 0;
     font-size: 1.02em;
-    color: $biovir-azul;
+    color: var(--cor);
     text-transform: none;
     letter-spacing: -0.01em;
   }
@@ -304,6 +318,61 @@ body:has(#title-slide.present) .reveal {
   > :last-child { margin-bottom: 0; }
 
   ul { padding-left: 0.9em; }
+}
+
+// ╔══════════════════════════════════════════════════════════════════════════╗
+// ║ 4b. CORES ALTERNATIVAS DAS CAIXAS                                        ║
+// ╚══════════════════════════════════════════════════════════════════════════╝
+//
+// Some uma classe de cor a qualquer .destaque, .caixa, .cartao ou
+// .destaque-forte:
+//
+//     ::: {.cartao .vermelho}
+//     #### Limitação
+//     Amostragem restrita a uma estação do ano.
+//     :::
+//
+// Para uma cor fora da paleta, defina a variável direto no .qmd:
+//
+//     ::: {.cartao style="--cor: #7b2d8e"}
+//
+// Variáveis disponíveis (basta `--cor` na maioria dos casos):
+//   --cor        acento: borda, barra do cartão e cor do título
+//   --cor-fundo  preenchimento do .destaque
+//   --cor-borda  contorno do .caixa
+//   --cor-clara  2º tom do gradiente do .destaque-forte
+//
+// Estas regras vêm DEPOIS das caixas de propósito: mesma especificidade,
+// então quem aparece por último vence.
+
+.reveal {
+  .vermelho {
+    --cor:       #b02f21;
+    --cor-clara: #d1503f;
+    --cor-fundo: #fdf4f2;
+    --cor-borda: #f0cdc7;
+  }
+
+  .ambar {
+    --cor:       #a8690a;
+    --cor-clara: #d18f14;
+    --cor-fundo: #fdf8ee;
+    --cor-borda: #f0dfbc;
+  }
+
+  .verde {
+    --cor:       #1b7a43;
+    --cor-clara: #2fa15f;
+    --cor-fundo: #f1f9f4;
+    --cor-borda: #c6e5d2;
+  }
+
+  .grafite {
+    --cor:       #4a5568;
+    --cor-clara: #7a8699;
+    --cor-fundo: #f6f8fa;
+    --cor-borda: #dde3ea;
+  }
 }
 
 // ╔══════════════════════════════════════════════════════════════════════════╗
