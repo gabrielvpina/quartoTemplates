@@ -637,6 +637,84 @@ Se a plateia só lembrar de um slide seu, qual você quer que seja?
 Faça esse primeiro.
 :::
 
+## O slide da equipe se monta sozinho {.smaller}
+
+No `.qmd` você escreve só isto:
+
+```markdown
+## A equipe {.equipe-completa}
+
+{{{< equipe >}}}
+
+::: {.nomes}
+- Nome de cada pessoa
+:::
+```
+
+::: {.columns}
+::: {.column width="52%"}
+As **fotos** vêm de `assets/members/`. Cada subpasta vira uma faixa do
+mosaico:
+
+```
+assets/members/
+├── professor/     → Coordenação
+├── researcher/    → Pesquisadores
+├── phd/           → Doutorado
+├── master/        → Mestrado
+└── undergraduate/ → Graduação
+```
+:::
+
+::: {.column width="48%"}
+::: {.destaque}
+**Manutenção**
+
+Entrou alguém? Largue a foto na subpasta certa.
+Saiu? Apague o arquivo.
+
+Não há lista de fotos para atualizar em lugar nenhum — subpasta vazia
+simplesmente não aparece.
+:::
+:::
+:::
+
+::: {.legenda}
+Os títulos e a ordem dos grupos ficam em `_quarto.yml`, na chave `equipe:`.
+A lista de nomes é independente das fotos: edite-a direto no `.qmd`.
+:::
+
+## Ajustes do mosaico {.smaller}
+
+| Você escreve | O que muda |
+|:--|:--|
+| `{{{< equipe >}}}` | mosaico completo, com o rótulo de cada grupo |
+| `{{{< equipe titulos=false >}}}` | só as fotos, sem rótulo |
+| `{{{< equipe pasta=assets/outra >}}}` | lê fotos de outra pasta |
+
+::: {.columns}
+::: {.column width="50%"}
+::: {.caixa}
+**Fotos aceitas**
+
+`.png` `.jpg` `.jpeg` `.webp` `.gif` `.svg` — em qualquer tamanho, cortadas
+em círculo automaticamente. Retratos aproximadamente quadrados ficam
+melhores.
+:::
+:::
+
+::: {.column width="50%"}
+::: {.caixa}
+**Peso do arquivo**
+
+Fotos grandes incham o `.html` (que é self-contained). Para reduzir sem
+perder qualidade visível:
+
+`bash tools/otimizar-fotos.sh`
+:::
+:::
+:::
+
 ## Quando algo dá errado {.smaller}
 
 ::: {.destaque}

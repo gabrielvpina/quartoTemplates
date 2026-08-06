@@ -199,15 +199,22 @@ Contato: email@instituicao.br · github.com/biovirlab
 :::
 
 <!--
-  SLIDE DE AGRADECIMENTOS
-  Para atualizar a equipe, basta editar a lista de nomes abaixo:
-  um "- " por pessoa. As duas colunas se reequilibram sozinhas.
+  SLIDE FINAL — A EQUIPE
+
+  FOTOS: montadas AUTOMATICAMENTE a partir de assets/members/. Cada subpasta
+  (professor, researcher, phd, master, undergraduate) vira uma faixa. Para
+  incluir alguém, largue a foto na subpasta certa; para remover, apague o
+  arquivo. Nada aqui precisa ser editado — subpasta vazia não aparece.
+  Títulos e ordem dos grupos ficam em _quarto.yml, chave `equipe:`.
+
+  NOMES: a lista abaixo é independente das fotos. Um "- " por pessoa;
+  as três colunas se reequilibram sozinhas.
 -->
 
-## Agradecimentos {.agradecimentos}
+## A equipe {.equipe-completa}
 
-::: {.columns}
-::: {.column width="56%"}
+{{< equipe >}}
+
 ::: {.nomes}
 - Eric Roberto Guimarães Rocha Aguiar
 - Aijalon Brito da Silva Junior
@@ -237,12 +244,4 @@ Contato: email@instituicao.br · github.com/biovirlab
 - Paula Luize Camargos Fonseca
 - Sabrina Ferreira de Santana
 - Tatyana Chagas Moura
-:::
-:::
-
-::: {.column width="44%"}
-::: {.foto-equipe}
-![](assets/team-complete.jpg)
-:::
-:::
 :::

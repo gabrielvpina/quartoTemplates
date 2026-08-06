@@ -371,38 +371,97 @@ body:has(#title-slide.present) .reveal {
 // ║ 7. SLIDES FINAIS DA EQUIPE                                               ║
 // ╚══════════════════════════════════════════════════════════════════════════╝
 //
-// Existem duas versões:
+//   .equipe-completa — slide único com o mosaico de fotos (montado sozinho
+//                      pelo shortcode {{< equipe >}}) MAIS a lista de nomes.
+//   .equipe          — fecho curto ("Obrigado!"), foto como imagem de fundo.
+
+// ── 7a. Slide único: mosaico + nomes ─────────────────────────────────────
 //
-//   .agradecimentos — título + lista de nomes à esquerda, foto à direita.
-//                     É o slide de créditos completo (ver modelo).
-//   .equipe         — fecho curto ("Obrigado!"), foto como imagem de fundo.
+// ORÇAMENTO DE ALTURA (slide 1050×700, margem 0.06 → área útil 924×616):
+//   título .................  82 px
+//   mosaico ................ 234 px   4 faixas de 1 linha cada
+//   separador ..............  24 px
+//   nomes .................. 181 px   28 nomes ÷ 3 colunas = 10 linhas
+//   ------------------------------
+//   total .................. 521 px   ≤ 616 px  ✔
+//
+// Ao mexer nos tamanhos abaixo, refaça esta conta: passando de 616 px o
+// reveal.js simplesmente corta o que sobra, sem avisar.
 
-// ── 7a. Créditos com a lista de nomes ────────────────────────────────────
-.reveal section.agradecimentos {
+.reveal section.equipe-completa {
   h1, h2 {
-    font-size: 1.55em;
+    font-size: 1.5em;
     color: $biovir-azul;
-    border: none;
-    padding-bottom: 0;
-    margin-bottom: 0.45em;
-
-    &::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -0.16em;
-      width: 2.4em;
-      height: 4px;
-      background: linear-gradient(90deg, $biovir-azul, $biovir-azul-claro);
-      border-radius: 2px;
-      display: block;
-    }
+    padding-bottom: 0.2em;
+    margin-bottom: 0.55em;
   }
 
-  // A lista de nomes: duas colunas, sem marcadores.
+  // ---- Mosaico de fotos -------------------------------------------------
+  .mosaico {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3em;
+  }
+
+  // Cada grupo é uma FAIXA: rótulo à esquerda, fotos em uma única linha.
+  .mosaico-grupo {
+    display: flex;
+    align-items: center;
+    gap: 0.3em;
+  }
+
+  .mosaico-titulo {
+    flex: 0 0 88px;         // largura fixa: alinha as fotos de todas as faixas
+    margin: 0;
+    font-family: $fonte-titulo;
+    font-size: 0.34em;
+    font-weight: 600;
+    line-height: 1.2;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: $biovir-azul;
+  }
+
+  .mosaico-contagem {
+    color: $biovir-azul-claro;
+    letter-spacing: 0;
+  }
+
+  .mosaico-fotos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+  }
+
+  // 48 px × 16 fotos + 15 folgas de 3 px = 813 px, dentro dos 828 px que
+  // sobram ao lado do rótulo. É esse cálculo que mantém o doutorado em
+  // uma linha só.
+  .mosaico-foto {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    object-position: center top;
+    border-radius: 50%;
+    border: 2px solid $biovir-azul-borda;
+    background: $biovir-azul-tenue;
+    display: block;
+  }
+
+  // Primeira faixa (coordenação) um pouco maior.
+  .mosaico-grupo:first-child .mosaico-foto {
+    width: 60px;
+    height: 60px;
+    border-color: $biovir-azul;
+  }
+
+  // ---- Lista de nomes ---------------------------------------------------
   .nomes {
+    margin-top: 0.55em;
+    padding-top: 0.5em;
+    border-top: 2px solid $biovir-cinza-claro;
+
     ul {
-      column-count: 2;
+      column-count: 3;
       column-gap: 1.4em;
       list-style: none;
       padding-left: 0;
@@ -410,33 +469,30 @@ body:has(#title-slide.present) .reveal {
     }
 
     li {
-      font-size: 0.40em;
+      font-size: 0.38em;
       line-height: 1.45;
-      margin-bottom: 0.15em;
+      margin-bottom: 0.06em;
       color: $biovir-tinta;
       break-inside: avoid;
       padding-left: 0.8em;
-      text-indent: -0.8em;    // nome longo que quebra alinha na 2ª linha
+      text-indent: -0.8em;   // nome longo que quebre alinha na 2ª linha
 
-      &::before { display: none; }   // sem bolinha: é uma lista de créditos
+      &::before { display: none; }   // sem bolinha: é lista de créditos
     }
   }
 
-  // Uma coluna só, quando forem poucos nomes
-  .nomes-1col ul { column-count: 1; }
+  .nomes-2col ul { column-count: 2; }
+  .nomes-4col ul { column-count: 4; font-size: 0.92em; }
+}
 
-  // A foto é retrato (proporção ~0,83). Sem teto de altura ela passa dos
-  // ~530 px que sobram abaixo do título e o reveal corta o que excede.
-  .foto-equipe img {
-    display: block;
-    width: auto;
-    max-width: 100%;
-    max-height: 500px;
-    margin: 0 auto;
-    border-radius: 10px;
-  }
-
-  p { font-size: 0.6em; color: $biovir-cinza; line-height: 1.4; }
+.reveal .equipe-erro {
+  font-family: $fonte-codigo;
+  font-size: 0.5em;
+  color: #a33;
+  background: #fdf3f3;
+  border: 1px solid #f0c8c8;
+  border-radius: 8px;
+  padding: 0.5em 0.8em;
 }
 
 // ── 7b. Fecho curto com a foto ao fundo ──────────────────────────────────

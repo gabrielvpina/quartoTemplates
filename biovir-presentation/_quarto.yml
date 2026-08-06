@@ -115,6 +115,33 @@ format:
 filters:
   - config/titulos-em-blocos.lua
 
+# Shortcode {{< equipe >}} — monta o mosaico de fotos lendo os subdiretórios.
+shortcodes:
+  - config/equipe.lua
+
+#-------------------------------------------------------------------------------
+# MOSAICO DA EQUIPE
+#
+# A hierarquia é definida pelos SUBDIRETÓRIOS de `pasta`. Para incluir alguém,
+# basta colocar a foto na subpasta certa — nada aqui precisa mudar.
+#
+# Esta lista serve só para dar TÍTULO e ORDEM aos grupos. Subpasta que exista
+# no disco mas não esteja aqui aparece no fim; subpasta vazia não aparece.
+#-------------------------------------------------------------------------------
+equipe:
+  pasta: assets/members
+  grupos:
+    - dir: professor
+      titulo: "Coordenação"
+    - dir: researcher
+      titulo: "Pesquisadores"
+    - dir: phd
+      titulo: "Doutorado"
+    - dir: master
+      titulo: "Mestrado"
+    - dir: undergraduate
+      titulo: "Graduação"
+
 # Execução de código (R / Python) — vale para todos os documentos.
 execute:
   echo: true        # mostra o código nos slides
