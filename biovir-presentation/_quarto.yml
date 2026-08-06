@@ -39,8 +39,8 @@ format:
     # Logo vertical na capa (entra como imagem de fundo do slide de título).
     title-slide-attributes:
       data-background-image: assets/logo-vertical-center.svg
-      data-background-size: 210px
-      data-background-position: 11% 50%
+      data-background-size: 250px
+      data-background-position: 8% 50%
       data-background-color: "#ffffff"
 
     # Rodapé desligado. Para ligar, descomente e edite:

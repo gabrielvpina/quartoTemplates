@@ -31,34 +31,133 @@ gera os slides em HTML usando o **reveal.js**.
 :::
 :::
 
-## Instalação (uma vez só)
+## Instalação: três peças
 
 ::: {.cartoes}
 ::: {.cartao}
 #### 1. Quarto CLI
-Baixe em [quarto.org/docs/get-started](https://quarto.org/docs/get-started/)
-e instale normalmente.
+O programa que converte `.qmd` em slides.
+**Obrigatório.**
 :::
 
 ::: {.cartao}
 #### 2. Um editor
-**VS Code** ou **Positron** com a extensão *Quarto*.
-RStudio também funciona sem extra.
+Qualquer um serve, mas com a extensão certa você ganha preview ao vivo.
+**Recomendado.**
 :::
 
 ::: {.cartao}
 #### 3. R ou Python
-Só se a sua apresentação for **executar código**.
-Slides sem código não precisam.
+Só se a apresentação for **executar código**.
+**Opcional.**
 :::
 :::
 
-Confira no terminal:
+::: {.destaque}
+Instala-se uma vez por computador. Depois disso, criar uma apresentação
+nova é só copiar um arquivo.
+:::
+
+## 1. Instalar o Quarto {.smaller}
+
+Em qualquer sistema, o caminho mais confiável é o instalador oficial:
+[quarto.org/docs/get-started](https://quarto.org/docs/get-started/)
+
+::: {.cartoes}
+::: {.cartao}
+#### Windows
+Baixe o `.msi` e execute (duplo clique, *Next* até o fim).
+
+Pelo terminal:
+
+`winget install --id Posit.Quarto`
+:::
+
+::: {.cartao}
+#### macOS
+Baixe o `.pkg` e execute.
+
+Com Homebrew:
+
+`brew install --cask quarto`
+:::
+
+::: {.cartao}
+#### Linux
+Debian / Ubuntu — baixe o `.deb` e:
+
+`sudo dpkg -i quarto-*-amd64.deb`
+
+Outras distros: use o `.tar.gz` do site.
+:::
+:::
+
+::: {.legenda}
+Em máquinas do laboratório sem senha de administrador, o `.tar.gz` do Linux e
+o instalador "somente para este usuário" do Windows funcionam sem `sudo`.
+:::
+
+## 2. Escolher um editor {.smaller}
+
+::: {.cartoes}
+::: {.cartao}
+#### VS Code
+Gratuito, o mais usado. Instale a extensão **Quarto** (aba de extensões,
+busque por "Quarto").
+:::
+
+::: {.cartao}
+#### Positron
+Da mesma empresa do RStudio, já vem com suporte a Quarto embutido.
+Bom para quem usa R e Python.
+:::
+
+::: {.cartao}
+#### RStudio
+Funciona sem instalar nada a mais. Familiar para quem já usa R.
+:::
+:::
+
+::: {.destaque}
+Nenhum editor é obrigatório: dá para escrever no Bloco de Notas e rodar
+`quarto render` no terminal. A extensão só acrescenta preview e realce
+de sintaxe.
+:::
+
+## 3. Conferir se deu certo {.smaller}
+
+Abra o terminal — **Prompt de Comando** ou **PowerShell** no Windows,
+**Terminal** no macOS e no Linux — e rode:
 
 ```bash
 quarto --version
+```
+
+Se aparecer um número de versão, está instalado. Para um diagnóstico
+completo:
+
+```bash
 quarto check
 ```
+
+::: {.columns}
+::: {.column width="50%"}
+::: {.caixa}
+**`quarto: command not found`**
+
+O terminal ainda não enxerga o Quarto. Feche e abra o terminal de novo;
+se persistir, reinstale marcando a opção de adicionar ao `PATH`.
+:::
+:::
+
+::: {.column width="50%"}
+::: {.caixa}
+**R ou Python "não encontrado"**
+
+Normal, e sem problema: só importa se você for executar código nos slides.
+:::
+:::
+:::
 
 ## O que tem nesta pasta
 
@@ -67,13 +166,18 @@ biovir-presentation/
 ├── _quarto.yml              ← configuração de TODAS as apresentações
 ├── modelo-apresentacao.qmd  ← ponto de partida: copie este arquivo
 ├── tutorial.qmd             ← este guia
+├── refs-exemplo.bib         ← renomeie p/ refs.bib e ative as citações
 ├── styles/
 │   ├── variaveis.scss       ← cores e fontes (mexa aqui)
 │   ├── fonts.scss           ← declaração das fontes locais
 │   ├── biovir.scss          ← tema base
 │   └── componentes.scss     ← caixas, cartões, capa, equipe
+├── config/                  ← filtros, shortcode da equipe, estilo ABNT
+├── tools/                   ← otimizar-fotos.sh
 ├── fonts/                   ← .woff2 locais (funciona sem internet)
-└── assets/                  ← logos e foto da equipe
+└── assets/
+    ├── members/             ← fotos da equipe, por hierarquia
+    └── ...                  ← logos
 ```
 
 ::: {.destaque}
@@ -100,8 +204,8 @@ quarto render seminario-2026-03.qmd
 ```
 
 ::: {.legenda}
-O resultado é `seminario-2026-03.html` + uma pasta `seminario-2026-03_files/`.
-Os dois andam juntos.
+O resultado é um único `seminario-2026-03.html`, autossuficiente: abre com
+duplo clique em qualquer computador, sem internet e sem pasta ao lado.
 :::
 
 # A anatomia de um `.qmd` {.divisor background-color="#304ea1"}
@@ -117,7 +221,9 @@ title: "Diversidade viral em solos de Caatinga"
 subtitle: "Resultados preliminares do sequenciamento"
 author:
   - name: "Maria Silva"
-    email: "maria@ufpe.br"
+    email: "maria@uesc.br"
+    affiliation: "PPG em Genética e Biologia Molecular"
+institute: "Universidade Estadual de Santa Cruz · Ilhéus, Bahia"
 date: today
 ---
 ```
@@ -125,7 +231,41 @@ date: today
 Depois do segundo `---` vem o conteúdo, em Markdown.
 
 ::: {.legenda}
-Tudo o mais — tema, cores, logo, rodapé, numeração — já vem de `_quarto.yml`.
+Tudo o mais — tema, cores, logo, numeração — já vem de `_quarto.yml`.
+:::
+
+## Autoria e afiliação {.smaller}
+
+::: {.columns}
+::: {.column width="52%"}
+`affiliation:` é **de cada autor** — repita o bloco `- name:` e dê a sua a
+cada um:
+
+```yaml
+author:
+  - name: "Maria Silva"
+    affiliation: "PPG em Genética"
+  - name: "João Souza"
+    affiliation: "Depto. de Ciências Biológicas"
+```
+:::
+
+::: {.column width="48%"}
+`institute:` é **comum a todos**, e aparece abaixo dos nomes:
+
+```yaml
+institute: "UESC · Ilhéus, Bahia"
+```
+
+::: {.caixa}
+Use um **ou** outro. Os dois juntos mostram duas linhas de afiliação por
+autor.
+:::
+:::
+:::
+
+::: {.legenda}
+Qualquer um dos dois pode ser apagado; a capa se reorganiza sozinha.
 :::
 
 ## Como nascem os slides
@@ -526,8 +666,8 @@ Os dois-pontos na linha de traços definem o alinhamento:
 ::: {.column width="50%"}
 | Tecla | O que faz |
 |:--|:--|
-| `B` | quadro-branco |
-| `C` | caneta sobre o slide |
+| `B` ou `.` | tela preta (pausa) |
+| `M` | menu de navegação |
 | `Esc` | sai do modo atual |
 | `?` | lista todos os atalhos |
 :::
@@ -536,6 +676,11 @@ Os dois-pontos na linha de traços definem o alinhamento:
 ::: {.destaque}
 `S` abre uma segunda janela com suas notas, o próximo slide e um cronômetro.
 Coloque-a no seu notebook e projete só a principal.
+:::
+
+::: {.legenda}
+`B` deixa a tela preta para a plateia olhar para você — útil ao responder
+uma pergunta longa.
 :::
 
 ## Exportar para PDF
@@ -553,23 +698,69 @@ file:///.../seminario-2026-03.html?print-pdf
 Animações e revelação incremental viram slides estáticos no PDF.
 :::
 
-## Levar num pen drive
+## Compartilhar a apresentação
 
-Por padrão o `.html` depende da pasta `_files/`. Para gerar **um arquivo
-único** que abre em qualquer computador:
+O `.html` gerado **já é um arquivo único**: fontes, logos, fotos, CSS e
+JavaScript estão todos dentro dele.
 
-```yaml
----
-title: "Minha apresentação"
-format:
-  revealjs:
-    embed-resources: true
----
-```
+::: {.columns}
+::: {.column width="52%"}
+Isso significa que você pode:
 
+- mandar por e-mail ou WhatsApp
+- copiar para um pen drive
+- abrir no computador do auditório
+
+sem levar pasta nenhuma junto e **sem depender de internet**.
+:::
+
+::: {.column width="48%"}
 ::: {.destaque}
-Fontes, logos, imagens e scripts entram todos dentro do `.html`.
-O arquivo fica maior, mas é autossuficiente e funciona sem internet.
+**O preço**
+
+O arquivo fica com alguns MB. Se ficar grande demais para e-mail, reduza
+as fotos da equipe:
+
+`bash tools/otimizar-fotos.sh`
+:::
+:::
+:::
+
+::: {.legenda}
+Quem definiu isso foi `embed-resources: true`, no `_quarto.yml` — vale para
+todas as apresentações da pasta.
+:::
+
+## E o quadro-branco? {.smaller}
+
+O reveal.js tem um plugin (`chalkboard`) que permite **desenhar sobre o
+slide** com as teclas `B` e `C`. Ele está **desligado** neste modelo.
+
+::: {.columns}
+::: {.column width="50%"}
+::: {.caixa}
+**Por quê**
+
+O plugin não é compatível com `embed-resources: true`. Com os dois ligados,
+o Quarto aborta a renderização com erro.
+:::
+:::
+
+::: {.column width="50%"}
+::: {.caixa}
+**Como ligar**
+
+Em `_quarto.yml`: troque `embed-resources` para `false` e descomente o bloco
+`chalkboard:`.
+
+Você troca o arquivo único pelo quadro.
+:::
+:::
+:::
+
+::: {.legenda}
+Alternativa sem abrir mão de nada: use a caneta do próprio sistema
+(no Windows, `Win` + `Shift` + `S`; no macOS, uma anotação por cima).
 :::
 
 # Ajustes finos {.divisor background-color="#304ea1"}
@@ -615,6 +806,11 @@ O que você **não** escrever continua vindo de `_quarto.yml` — inclusive
 tema, fontes e logos. Nunca é preciso repetir o bloco `theme:`.
 :::
 
+::: {.legenda}
+O rodapé vem **desligado** no modelo. O exemplo acima o liga só nesta
+apresentação — útil para identificar uma disciplina ou um evento.
+:::
+
 ## Sete hábitos de um bom slide {.smaller}
 
 ::: {.columns}
@@ -647,6 +843,7 @@ No `.qmd` você escreve só isto:
 {{{< equipe >}}}
 
 ::: {.nomes}
+- **Coordenação em negrito**
 - Nome de cada pessoa
 :::
 ```
@@ -681,7 +878,9 @@ simplesmente não aparece.
 
 ::: {.legenda}
 Os títulos e a ordem dos grupos ficam em `_quarto.yml`, na chave `equipe:`.
-A lista de nomes é independente das fotos: edite-a direto no `.qmd`.
+As fotos formam uma sequência contínua — a linha quebra quando enche, não a
+cada troca de grupo. A lista de nomes é independente das fotos: edite-a
+direto no `.qmd`, em 4 colunas, e use `**negrito**` para a coordenação.
 :::
 
 ## Ajustes do mosaico {.smaller}

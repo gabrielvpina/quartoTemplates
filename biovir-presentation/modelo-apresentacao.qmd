@@ -4,6 +4,14 @@ subtitle: "Subtítulo curto explicando o recorte do trabalho"
 author:
   - name: "Nome de quem apresenta"
     email: "email@instituicao.br"
+    # Afiliação de quem apresenta. Repita o bloco `- name:` para mais autores;
+    # cada um pode ter a sua. Apague a linha se não quiser mostrar.
+    affiliation: "Programa de Pós-Graduação em ... — Biovir Lab"
+
+# Instituição comum a todos os autores. Aparece abaixo dos nomes, na capa.
+# Comente esta linha se cada autor já tiver a sua `affiliation:`.
+institute: "Universidade Estadual de Santa Cruz · Ilhéus, Bahia"
+
 date: today
 
 # =============================================================================

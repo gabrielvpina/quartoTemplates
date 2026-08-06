@@ -16,27 +16,54 @@
 // ║ 1. SLIDE DE CAPA                                                         ║
 // ╚══════════════════════════════════════════════════════════════════════════╝
 //
-// A logo vertical entra como `background-image` (veja title-slide-attributes
-// no YAML). Aqui só empurramos o texto para a direita, liberando o espaço.
+// A logo vertical entra como imagem de fundo (title-slide-attributes, no
+// _quarto.yml) e o texto ocupa a coluna da direita.
+//
+// GEOMETRIA — a logo e o texto vivem em sistemas de coordenadas DIFERENTES:
+// a imagem de fundo se posiciona sobre os 1050 px do slide inteiro, enquanto
+// o padding do texto se mede sobre os 924 px da área útil. Daí a conta:
+//
+//   logo ... 250 px em background-position 8%
+//            → x = 0.08 × (1050 - 250) = 64 px, ocupando 64…314 px
+//            → altura 250 ÷ 0,742 = 337 px, centrada nos 700 px do slide
+//   texto .. padding-left 33% → começa em 63 + 305 = 368 px
+//            (63 px é a margem de 6% do reveal)
+//   folga entre a logo e o texto ......  54 px
+//   largura útil do texto ............. 600 px, terminando em 969 ≤ 1050  ✔
+//
+// Aumentar a logo empurra o texto para a direita e encurta a coluna: se
+// mexer em `data-background-size`, refaça as duas linhas de padding abaixo.
 
 .reveal #title-slide {
+  // CRÍTICO: o reveal.js define `width: 100%` nas sections e NÃO define
+  // box-sizing: border-box. Em content-box, os paddings abaixo somariam POR
+  // FORA dos 100% e a caixa de texto passaria 305 px da borda direita —
+  // títulos longos simplesmente saem da tela. Não remova esta linha.
+  box-sizing: border-box;
+
   text-align: left;
   padding-left: 33%;
-  padding-right: 4%;
+  padding-right: 2%;
 
   .title {
     font-family: $fonte-titulo;
-    font-size: 1.95em;
+    font-size: 1.8em;
     font-weight: 700;
     line-height: 1.08;
     color: $biovir-azul;
     letter-spacing: -0.028em;
     margin-bottom: 0.28em;
+
+    // Rede de segurança para títulos com palavras muito longas
+    // (nomes de espécies, genes, siglas): quebram em vez de transbordar.
+    overflow-wrap: break-word;
+    hyphens: auto;
+    text-wrap: balance;
   }
 
   .subtitle {
     font-family: $fonte-texto;
-    font-size: 0.92em;
+    font-size: 0.88em;
     font-weight: 400;
     color: $biovir-cinza;
     line-height: 1.35;
@@ -44,29 +71,47 @@
     // Filete de acento acima do subtítulo
     padding-top: 0.7em;
     border-top: 3px solid $biovir-azul-claro;
-    display: inline-block;
+    display: block;
+    overflow-wrap: break-word;
   }
 
-  .quarto-title-authors,
-  .author,
-  .quarto-title-author-name {
+  // ATENÇÃO: o tamanho é definido UMA vez, no contêiner. Repeti-lo nos
+  // filhos multiplicaria (0.62em × 0.62em ≈ 0.38em) e o nome do autor
+  // sairia miúdo demais.
+  .quarto-title-authors {
     font-family: $fonte-texto;
     font-size: 0.62em;
-    font-weight: 600;
-    color: $biovir-tinta;
     justify-content: flex-start;
     text-align: left;
     padding-left: 0;
   }
 
-  .quarto-title-author { padding-left: 0; padding-right: 1.6em; }
+  .quarto-title-author {
+    padding-left: 0;
+    padding-right: 1.6em;
+  }
 
-  .quarto-title-author-email,
-  .institute,
-  .quarto-title-affiliation {
-    font-size: 0.85em;
+  .quarto-title-author-name {
+    font-weight: 600;
+    color: $biovir-tinta;
+    line-height: 1.3;
+  }
+
+  .quarto-title-author-email {
+    color: $biovir-cinza;
+    line-height: 1.3;
+
+    a { color: $biovir-azul-claro; border-bottom: none; }
+  }
+
+  // Afiliação: `affiliation:` no autor ou `institute:` no YAML do documento.
+  .quarto-title-affiliation,
+  .institute {
+    font-size: 0.88em;
     font-weight: 400;
     color: $biovir-cinza;
+    line-height: 1.3;
+    margin: 0.2em 0 0 0;
   }
 
   .date {
@@ -78,9 +123,6 @@
     text-transform: uppercase;
     margin-top: 0.9em;
   }
-
-  // Na capa a logo grande já representa a marca; a cápsula do canto sai.
-  & ~ * .slide-logo { display: none; }
 }
 
 // Enquanto a capa está ativa, some com o "cromo": a logo vertical já basta.
