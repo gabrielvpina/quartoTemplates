@@ -208,7 +208,8 @@ Contato: email@instituicao.br · github.com/biovirlab
   Títulos e ordem dos grupos ficam em _quarto.yml, chave `equipe:`.
 
   NOMES: a lista abaixo é independente das fotos. Um "- " por pessoa;
-  as três colunas se reequilibram sozinhas.
+  as três colunas se reequilibram sozinhas. Use **negrito** para destacar
+  a coordenação.
 -->
 
 ## A equipe {.equipe-completa}
@@ -216,7 +217,7 @@ Contato: email@instituicao.br · github.com/biovirlab
 {{< equipe >}}
 
 ::: {.nomes}
-- Eric Roberto Guimarães Rocha Aguiar
+- **Eric Roberto Guimarães Rocha Aguiar**
 - Aijalon Brito da Silva Junior
 - Amanda Gabrielly Santana Silva
 - Anderson Carvalho Vieira

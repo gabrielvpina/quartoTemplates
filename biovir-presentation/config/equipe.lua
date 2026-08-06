@@ -144,23 +144,38 @@ return {
 
       -- Pasta ausente ou vazia: o grupo simplesmente não aparece.
       if fotos ~= nil and #fotos > 0 then
+        local function img(foto)
+          return '<img class="mosaico-foto" src="'
+            .. escapar(caminho .. "/" .. foto)
+            .. '" alt="Integrante da equipe — ' .. escapar(grupo.titulo) .. '">'
+        end
+
+        -- O CSS aplica `display: contents` neste div, de modo que rótulo e
+        -- fotos viram itens diretos do mesmo container flex: as fotos fluem
+        -- em sequência e a linha só quebra quando enche, sem quebrar a cada
+        -- mudança de hierarquia.
         table.insert(html, '<div class="mosaico-grupo">')
 
+        -- Rótulo e PRIMEIRA foto vão juntos dentro de .mosaico-abre, que é
+        -- inline-flex e portanto indivisível. Sem isso, o rótulo poderia
+        -- sobrar sozinho no fim de uma linha, longe do seu grupo.
+        table.insert(html, '<span class="mosaico-abre">')
         if mostrar_titulos then
           table.insert(html,
-            '<p class="mosaico-titulo">' .. escapar(grupo.titulo)
-            .. ' <span class="mosaico-contagem">' .. #fotos .. "</span></p>")
+            '<span class="mosaico-titulo">' .. escapar(grupo.titulo)
+            .. ' <span class="mosaico-contagem">' .. #fotos .. "</span></span>")
         end
+        table.insert(html, img(fotos[1]))
+        table.insert(html, "</span>")
+        total = total + 1
 
-        table.insert(html, '<div class="mosaico-fotos">')
-        for _, foto in ipairs(fotos) do
-          local src = escapar(caminho .. "/" .. foto)
-          table.insert(html,
-            '<img class="mosaico-foto" src="' .. src .. '" alt="Integrante do '
-            .. escapar(grupo.titulo) .. '">')
+        -- As demais fluem soltas.
+        for i = 2, #fotos do
+          table.insert(html, img(fotos[i]))
           total = total + 1
         end
-        table.insert(html, "</div></div>")
+
+        table.insert(html, "</div>")
       end
     end
 

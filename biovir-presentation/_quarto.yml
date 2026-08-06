@@ -43,7 +43,8 @@ format:
       data-background-position: 11% 50%
       data-background-color: "#ffffff"
 
-    footer: "**Biovir Lab** · Laboratório de Bioinformática e Virologia"
+    # Rodapé desligado. Para ligar, descomente e edite:
+    # footer: "**Biovir Lab** · Laboratório de Bioinformática e Virologia"
 
     #-- Geometria e navegação -----------------------------------------------
     width: 1050
@@ -114,6 +115,7 @@ format:
 # Veja a explicação completa dentro do próprio arquivo.
 filters:
   - config/titulos-em-blocos.lua
+  - config/bibliografia.lua
 
 # Shortcode {{< equipe >}} — monta o mosaico de fotos lendo os subdiretórios.
 shortcodes:
@@ -153,6 +155,16 @@ execute:
 mermaid:
   theme: neutral
 
-# Bibliografia opcional: descomente se for citar com [@chave]
-# bibliography: config/referencias.bib
-# csl: config/abnt.csl
+#-------------------------------------------------------------------------------
+# BIBLIOGRAFIA
+#
+# Nada a configurar: basta existir um `refs.bib` ao lado do .qmd que o filtro
+# config/bibliografia.lua liga as citações, aplica o estilo ABNT
+# (config/abnt.csl) e acrescenta o slide "Bibliografia" no fim.
+#
+# Sem refs.bib, nada acontece. Para usar outro arquivo ou outro título,
+# declare no YAML do seu .qmd:
+#   bibliography: minhas-refs.bib
+#   titulo-bibliografia: "Referências"
+#-------------------------------------------------------------------------------
+citeproc: true

@@ -262,6 +262,10 @@
     letter-spacing: 0.01em;
   }
 
+  // Sem `footer:` no _quarto.yml o Quarto ainda emite o contêiner vazio.
+  // `:has(*)` distingue: com rodapé há um <p> dentro; sem rodapé, nada.
+  .footer:not(:has(*)) { display: none; }
+
   // Cápsula viral no canto — elemento permanente da identidade.
   .slide-logo {
     max-height: 62px !important;

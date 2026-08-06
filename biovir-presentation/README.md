@@ -28,6 +28,9 @@ abra `tutorial.html`.
 | `styles/componentes.scss` | Capa, divisores, caixas, cartões, números, slide da equipe |
 | `config/titulos-em-blocos.lua` | Impede que títulos dentro de blocos virem slides |
 | `config/equipe.lua` | Shortcode `{{< equipe >}}`: monta o mosaico de fotos |
+| `config/bibliografia.lua` | Liga citações e cria o slide "Bibliografia" quando existe `refs.bib` |
+| `config/abnt.csl` | Estilo de citação ABNT (padrão) |
+| `refs-exemplo.bib` | Renomeie para `refs.bib` para ativar as referências |
 | `tools/otimizar-fotos.sh` | Reduz o peso das fotos da equipe |
 | `fonts/` | `.woff2` + licenças OFL |
 | `assets/` | Logos, foto coletiva e `members/` (fotos individuais) |
@@ -74,8 +77,34 @@ o arquivo. Não existe lista de fotos para atualizar. Títulos e ordem dos
 grupos ficam em `_quarto.yml`, chave `equipe:`; subpasta que exista no disco
 mas não esteja lá aparece no fim, com o nome da própria pasta.
 
+Grupos com até 4 fotos ganham a classe `compacto` e dividem uma linha com o
+vizinho — é assim que Coordenação e Pesquisadores ficam lado a lado, o que
+libera altura para as demais fotos serem maiores.
+
 Variações: `{{< equipe titulos=false >}}` (só fotos) e
 `{{< equipe pasta=assets/outra >}}`.
+
+## Bibliografia
+
+```bash
+mv refs-exemplo.bib refs.bib
+```
+
+Só isso. A partir daí, todas as apresentações da pasta passam a ter citações
+no padrão **ABNT** e um slide **Bibliografia** no fim, montado só com o que
+foi citado. Sem `refs.bib`, nada aparece — nem slide, nem erro.
+
+| No `.qmd` | Resultado |
+|---|---|
+| `[@silva2024]` | (Silva, 2024) |
+| `@silva2024` | Silva (2024) |
+| `[@silva2024, p. 42]` | (Silva, 2024, p. 42) |
+
+Opcional, no YAML do documento: `bibliography:` (outro `.bib`),
+`titulo-bibliografia:` (outro título), `csl:` (outro estilo),
+`bibliografia-automatica: false` (não criar o slide). Para escolher onde o
+slide entra, escreva `## Bibliografia` seguido de `::: {#refs}` `:::` — o
+filtro detecta e não duplica.
 
 ## Componentes
 
@@ -122,6 +151,10 @@ no SCSS; refaça a conta se mexer nos tamanhos.
 todos os slides na ordem do arquivo — sem isso, um `#` cria pilha vertical e
 a seta direita pula a seção inteira.
 
+## Rodapé
+
+Vem desligado. Para religá-lo, descomente `footer:` em `_quarto.yml`.
+
 ## Exportar
 
 - **PDF**: abra o `.html`, acrescente `?print-pdf` na URL, `Cmd/Ctrl+P` →
@@ -132,7 +165,7 @@ a seta direita pula a seção inteira.
 ### Peso do arquivo
 
 Com as fotos originais (450 px, ~250 kB cada), o `.html` fica em ~14 MB.
-Como elas aparecem com ~48 px de lado, dá para reduzir muito sem perda
+Como elas aparecem com ~68 px de lado, dá para reduzir muito sem perda
 visível:
 
 ```bash

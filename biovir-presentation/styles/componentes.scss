@@ -378,48 +378,70 @@ body:has(#title-slide.present) .reveal {
 // ── 7a. Slide único: mosaico + nomes ─────────────────────────────────────
 //
 // ORÇAMENTO DE ALTURA (slide 1050×700, margem 0.06 → área útil 924×616):
-//   título .................  82 px
-//   mosaico ................ 234 px   4 faixas de 1 linha cada
-//   separador ..............  24 px
-//   nomes .................. 181 px   28 nomes ÷ 3 colunas = 10 linhas
+//   título .................  67 px
+//   mosaico ................ 208 px   3 linhas de 64 px + 2 folgas de 8 px
+//   separador ..............  20 px
+//   nomes .................. 187 px   28 nomes ÷ 3 colunas = 10 linhas
 //   ------------------------------
-//   total .................. 521 px   ≤ 616 px  ✔
+//   total .................. 482 px   sobram ~134 px de respiro no rodapé
 //
-// Ao mexer nos tamanhos abaixo, refaça esta conta: passando de 616 px o
-// reveal.js simplesmente corta o que sobra, sem avisar.
+// LARGURA (o que define o número de linhas do mosaico):
+//   28 fotos × 64 px .................... 1792 px
+//   4 rótulos (com a contagem) ..........  408 px
+//   folgas e margens .................... ~166 px
+//   ------------------------------------------
+//   total ............................... ~2366 px
+//   capacidade de 3 linhas (3 × 924) ....  2772 px  ✔
+//
+// Aumentar a foto ou acrescentar gente empurra para uma 4ª linha, que ainda
+// cabe (482 + 72 = 554 px). A partir da 5ª é preciso reduzir a foto.
 
 .reveal section.equipe-completa {
   h1, h2 {
-    font-size: 1.5em;
+    font-size: 1.4em;
     color: $biovir-azul;
-    padding-bottom: 0.2em;
-    margin-bottom: 0.55em;
+    padding-bottom: 0.18em;
+    margin-bottom: 0.42em;
   }
 
   // ---- Mosaico de fotos -------------------------------------------------
+  //
+  // FLUXO CONTÍNUO: as fotos formam uma sequência única e a linha só quebra
+  // quando enche — nunca por mudança de hierarquia. Quem faz isso é o
+  // `display: contents` abaixo: ele dissolve o div de cada grupo, e rótulos
+  // e fotos passam a ser itens diretos deste mesmo flex.
   .mosaico {
     display: flex;
-    flex-direction: column;
-    gap: 0.3em;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 4px;
   }
 
-  // Cada grupo é uma FAIXA: rótulo à esquerda, fotos em uma única linha.
   .mosaico-grupo {
-    display: flex;
-    align-items: center;
-    gap: 0.3em;
+    display: contents;
   }
+
+  // Rótulo + primeira foto: unidade indivisível, para o rótulo nunca ficar
+  // órfão no fim de uma linha.
+  .mosaico-abre {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-left: 10px;
+  }
+
+  .mosaico-grupo:first-child .mosaico-abre { margin-left: 0; }
 
   .mosaico-titulo {
-    flex: 0 0 88px;         // largura fixa: alinha as fotos de todas as faixas
     margin: 0;
     font-family: $fonte-titulo;
     font-size: 0.34em;
     font-weight: 600;
-    line-height: 1.2;
+    line-height: 1.15;
     text-transform: uppercase;
     letter-spacing: 0.06em;
     color: $biovir-azul;
+    white-space: nowrap;
   }
 
   .mosaico-contagem {
@@ -427,37 +449,27 @@ body:has(#title-slide.present) .reveal {
     letter-spacing: 0;
   }
 
-  .mosaico-fotos {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 3px;
-  }
-
-  // 48 px × 16 fotos + 15 folgas de 3 px = 813 px, dentro dos 828 px que
-  // sobram ao lado do rótulo. É esse cálculo que mantém o doutorado em
-  // uma linha só.
+  // Todas do mesmo tamanho: é o que dá ritmo à sequência.
   .mosaico-foto {
-    width: 48px;
-    height: 48px;
+    width: 64px;
+    height: 64px;
     object-fit: cover;
     object-position: center top;
     border-radius: 50%;
     border: 2px solid $biovir-azul-borda;
     background: $biovir-azul-tenue;
     display: block;
+    flex: 0 0 auto;
   }
 
-  // Primeira faixa (coordenação) um pouco maior.
-  .mosaico-grupo:first-child .mosaico-foto {
-    width: 60px;
-    height: 60px;
-    border-color: $biovir-azul;
-  }
+  // Anel mais forte na coordenação — o destaque agora é só a moldura,
+  // já que o tamanho é uniforme.
+  .mosaico-grupo:first-child .mosaico-foto { border-color: $biovir-azul; }
 
   // ---- Lista de nomes ---------------------------------------------------
   .nomes {
-    margin-top: 0.55em;
-    padding-top: 0.5em;
+    margin-top: 0.42em;
+    padding-top: 0.42em;
     border-top: 2px solid $biovir-cinza-claro;
 
     ul {
@@ -469,15 +481,21 @@ body:has(#title-slide.present) .reveal {
     }
 
     li {
-      font-size: 0.38em;
-      line-height: 1.45;
-      margin-bottom: 0.06em;
+      font-size: 0.36em;
+      line-height: 1.42;
+      margin-bottom: 0.04em;
       color: $biovir-tinta;
       break-inside: avoid;
       padding-left: 0.8em;
       text-indent: -0.8em;   // nome longo que quebre alinha na 2ª linha
 
       &::before { display: none; }   // sem bolinha: é lista de créditos
+
+      // "- **Nome**" destaca a coordenação sem mudar o tamanho da linha.
+      strong {
+        font-weight: 700;
+        color: $biovir-azul;
+      }
     }
   }
 
@@ -514,6 +532,39 @@ body:has(#title-slide.present) .reveal {
   p { font-size: 0.78em; color: $biovir-cinza; line-height: 1.45; }
 
   .rotulo { margin-bottom: 0.8em; }
+}
+
+// ╔══════════════════════════════════════════════════════════════════════════╗
+// ║ 7d. SLIDE DE BIBLIOGRAFIA                                                ║
+// ╚══════════════════════════════════════════════════════════════════════════╝
+//
+// Criado automaticamente por config/bibliografia.lua quando existe refs.bib.
+// As referências ABNT são longas, por isso o slide já nasce .scrollable.
+
+.reveal section.bibliografia {
+  #refs {
+    font-size: 0.46em;
+    line-height: 1.4;
+    margin-top: 0.4em;
+  }
+
+  // Cada referência: recuo francês, como manda a leitura de lista
+  .csl-entry {
+    margin-bottom: 0.7em;
+    padding-left: 1.4em;
+    text-indent: -1.4em;
+    color: $biovir-tinta;
+  }
+
+  .csl-left-margin  { color: $biovir-azul; font-weight: 600; }
+  .csl-right-inline { display: inline; }
+}
+
+// Citação no corpo do texto: [@silva2024]
+.reveal .citation a {
+  color: $biovir-azul-claro;
+  border-bottom: none;
+  font-variant-numeric: tabular-nums;
 }
 
 // ╔══════════════════════════════════════════════════════════════════════════╗

@@ -715,6 +715,72 @@ perder qualidade visível:
 :::
 :::
 
+## Citações e bibliografia {.smaller}
+
+Renomeie `refs-exemplo.bib` para **`refs.bib`** e pronto — não há nada a
+configurar:
+
+```bash
+mv refs-exemplo.bib refs.bib
+```
+
+::: {.columns}
+::: {.column width="50%"}
+No `.qmd`, cite assim:
+
+| Você escreve | Sai assim |
+|:--|:--|
+| `[@silva2024]` | (Silva, 2024) |
+| `@silva2024` | Silva (2024) |
+| `[@silva2024, p. 42]` | (Silva, 2024, p. 42) |
+| `[@a2024; @b2023]` | (A, 2024; B, 2023) |
+:::
+
+::: {.column width="50%"}
+::: {.destaque}
+**O que acontece sozinho**
+
+- as citações viram texto no padrão **ABNT**
+- um slide **Bibliografia** entra no fim, só com o que foi citado
+- sem `refs.bib`, nada disso aparece
+:::
+:::
+:::
+
+::: {.legenda}
+O `.bib` sai pronto do Zotero, do Mendeley ou do Google Acadêmico
+(botão "Citar" → BibTeX).
+:::
+
+## Ajustando a bibliografia {.smaller}
+
+Tudo opcional, no YAML do seu `.qmd`:
+
+```yaml
+---
+title: "Meu seminário"
+bibliography: minhas-referencias.bib   # outro arquivo
+titulo-bibliografia: "Referências"     # outro título de slide
+csl: config/outro-estilo.csl           # outro estilo de citação
+---
+```
+
+Para escolher **onde** o slide entra — por exemplo, antes do slide da
+equipe — escreva você mesmo; o filtro percebe e não duplica:
+
+```markdown
+## Bibliografia
+
+::: {#refs}
+:::
+```
+
+::: {.legenda}
+Referência citada mas ausente do `.bib` aparece como `?` e o Quarto avisa
+no terminal. Referência presente no `.bib` mas nunca citada não entra no
+slide.
+:::
+
 ## Quando algo dá errado {.smaller}
 
 ::: {.destaque}
