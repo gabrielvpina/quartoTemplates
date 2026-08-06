@@ -379,22 +379,27 @@ body:has(#title-slide.present) .reveal {
 //
 // ORÇAMENTO DE ALTURA (slide 1050×700, margem 0.06 → área útil 924×616):
 //   título .................  67 px
-//   mosaico ................ 208 px   3 linhas de 64 px + 2 folgas de 8 px
-//   separador ..............  20 px
-//   nomes .................. 187 px   28 nomes ÷ 3 colunas = 10 linhas
+//   mosaico ................ 232 px   3 linhas de 72 px + 2 folgas de 8 px
+//   separador ..............  44 px
+//   nomes .................. 124 px   28 nomes ÷ 4 colunas = 7 linhas
 //   ------------------------------
-//   total .................. 482 px   sobram ~134 px de respiro no rodapé
+//   total .................. 467 px   sobram ~149 px de respiro no rodapé
 //
 // LARGURA (o que define o número de linhas do mosaico):
-//   28 fotos × 64 px .................... 1792 px
+//   28 fotos × 72 px .................... 2016 px
 //   4 rótulos (com a contagem) ..........  408 px
-//   folgas e margens .................... ~166 px
+//   folgas e margens .................... ~160 px
 //   ------------------------------------------
-//   total ............................... ~2366 px
+//   total ............................... ~2584 px
 //   capacidade de 3 linhas (3 × 924) ....  2772 px  ✔
 //
-// Aumentar a foto ou acrescentar gente empurra para uma 4ª linha, que ainda
-// cabe (482 + 72 = 554 px). A partir da 5ª é preciso reduzir a foto.
+// Margem de segurança de ~190 px. Se entrar gente nova e o mosaico passar
+// para uma 4ª linha, ainda cabe (467 + 80 = 547 px); a partir da 5ª é
+// preciso reduzir a foto.
+//
+// LARGURA DA COLUNA DE NOMES: (924 - 3 folgas de 30 px) ÷ 4 = 208 px.
+// O nome mais longo ("Brenaráise Freitas Martins dos Santos", 37 caracteres)
+// ocupa ~199 px a 0.35em — cabe sem quebrar, que é o que mantém as 7 linhas.
 
 .reveal section.equipe-completa {
   h1, h2 {
@@ -451,8 +456,8 @@ body:has(#title-slide.present) .reveal {
 
   // Todas do mesmo tamanho: é o que dá ritmo à sequência.
   .mosaico-foto {
-    width: 64px;
-    height: 64px;
+    width: 72px;
+    height: 72px;
     object-fit: cover;
     object-position: center top;
     border-radius: 50%;
@@ -468,20 +473,20 @@ body:has(#title-slide.present) .reveal {
 
   // ---- Lista de nomes ---------------------------------------------------
   .nomes {
-    margin-top: 0.42em;
-    padding-top: 0.42em;
+    margin-top: 0.8em;
+    padding-top: 0.5em;
     border-top: 2px solid $biovir-cinza-claro;
 
     ul {
-      column-count: 3;
-      column-gap: 1.4em;
+      column-count: 4;
+      column-gap: 0.9em;
       list-style: none;
       padding-left: 0;
       margin: 0;
     }
 
     li {
-      font-size: 0.36em;
+      font-size: 0.35em;
       line-height: 1.42;
       margin-bottom: 0.04em;
       color: $biovir-tinta;
@@ -500,7 +505,7 @@ body:has(#title-slide.present) .reveal {
   }
 
   .nomes-2col ul { column-count: 2; }
-  .nomes-4col ul { column-count: 4; font-size: 0.92em; }
+  .nomes-3col ul { column-count: 3; }
 }
 
 .reveal .equipe-erro {
