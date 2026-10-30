@@ -1,0 +1,18 @@
+title: formal-cv
+author: Gabriel Rodrigues
+version: 1.0.0
+quarto-required: ">=1.5.0"
+contributes:
+  formats:
+    typst:
+      filters:
+        - formal-cv.lua
+      template-partials:
+        - typst-template.typ
+        - typst-show.typ
+        - page.typ
+        - icons.typ
+      font-paths:
+        - _extensions/formal-cv/fonts
+      papersize: a4
+      section-numbering: null

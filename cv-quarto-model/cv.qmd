@@ -1,0 +1,180 @@
+---
+# ============================================================================
+#  formal-cv · fill in this file and run:  quarto render cv.qmd
+# ============================================================================
+format: formal-cv-typst
+lang: en
+
+name: Gabriel Rodrigues
+jobtitle: Bioinformatician · Viral Genomics
+
+# --- Look & feel -------------------------------------------------------------
+cv:
+  theme: ta          # navy | charcoal | slate | forest | teal | burgundy | espresso | graphite
+  typeface: classic    # classic | modern | serif | academic
+  photo-shape: circle  # circle | rounded | square
+  # accent: "#1F3A5F"        # optional: override the palette accent colour
+  # sidebar-color: "#F2F4F7" # optional: override the sidebar background
+  # fontsize: 9.5pt
+
+# --- Left column ---------------------------------------------------------------
+sidebar:
+  photo: assets/profile.webp
+  info:
+    - icon: location-dot
+      text: Ilhéus, Bahia — Brazil
+    - icon: laptop
+      text: Remote · GMT-3
+
+  sections:
+    - title: Contact
+      contact:
+        - icon: envelope
+          text: gvpina.rodrigues@gmail.com
+          url: mailto:gvpina.rodrigues@gmail.com
+        - icon: phone
+          text: +55 73 98111 3295
+        - icon: globe
+          text: gabrielvpina.github.io
+          url: https://gabrielvpina.github.io
+        - icon: github
+          text: gabrielvpina
+          url: https://github.com/gabrielvpina
+        - icon: linkedin
+          text: gabriel-rodrigues
+          url: https://linkedin.com/in/gabriel-rodrigues-008419210/
+        - icon: orcid
+          text: 0009-0005-2294-2845
+          url: https://orcid.org/0009-0005-2294-2845
+
+    - title: Technical Stack
+      skills:                         # level: 0–1 (or 1–5)
+        - name: R & Bioconductor
+          label: 5+ yrs
+          level: 0.92
+        - name: Bash & Linux / HPC
+          label: 5 yrs
+          level: 0.85
+        - name: Python
+          label: 3+ yrs
+          level: 0.78
+        - name: Quarto & R Markdown
+          label: 4 yrs
+          level: 0.80
+        - name: R Shiny
+          label: 2+ yrs
+          level: 0.65
+        - name: Nextflow
+          label: 2 yrs
+          level: 0.50
+
+    - title: Core Expertise
+      items:
+        - NGS and bulk RNA-Seq analysis
+        - Viral discovery from public data
+        - Metagenomics & metatranscriptomics
+        - Genome / transcriptome assembly
+        - Differential expression & GSEA
+        - Small RNA and EVE analysis
+
+    - title: Tools
+      tags: [Git, Docker, pixi, Conda, uv, SLURM, AWS, ggplot2, Plotly, D3.js, bslib, renv, SQL]
+
+    - title: Education
+      education:
+        - degree: BSc, Computer Science
+          school: Centro Universitário Internacional (UNINTER)
+          date: 2026 — Present
+          note: Data science & algorithm / pipeline optimization
+        - degree: PhD, Genetics and Molecular Biology
+          school: Universidade Estadual de Santa Cruz
+          date: 2025 — Present
+          note: Next-generation ViralQuest
+        - degree: MSc, Genetics and Molecular Biology
+          school: Universidade Estadual de Santa Cruz
+          date: 2023 — 2025
+          note: Viral surveillance of Theobroma cacao
+        - degree: BSc, Interdisciplinary Sciences
+          school: Universidade Federal do Sul da Bahia
+          date: 2018 — 2022
+
+    - title: Languages
+      skills:
+        - name: Portuguese
+          label: Native
+        - name: English
+          label: Professional
+        - name: Spanish
+          label: Intermediate
+---
+
+# Profile
+
+Bioinformatician working where virology meets genomics. I design and maintain
+reproducible pipelines that turn public sequencing data into biological insight,
+from raw NGS reads to curated viral genomes and interactive reports. My work
+spans viral discovery and surveillance, metatranscriptomics, small RNAs and
+plant immunity, built on R, Python, Bash and Nextflow running on Linux HPC
+(SLURM) and cloud environments. Currently also pursuing a BSc in Computer
+Science, focused on data science and the optimization
+of algorithms and pipelines. I care about open, well-documented software: the
+viruses are already in the data, and my job is to make finding them routine.
+
+# Experience
+
+::: {.entry title="PhD Researcher — Bioinformatics & Viral Genomics" org="Biotechnology and Genetics Center, UESC" location="Ilhéus, BA" date="2025 — Present"}
+- Lead the full refactor of **ViralQuest** (Python ≥ 3.12, pixi), improving dependency installation, Apple silicon support and the interactive HTML report.
+- Build automated NGS workflows in Python, Bash and Nextflow for Linux HPC (SLURM) and AWS.
+- Extend viral discovery to new hosts and datasets mined from public sequence repositories.
+:::
+
+::: {.entry title="Public Health Data Analyst & R Shiny Developer" org="UESC · Regional Health Authorities" location="Bahia" date="2025 — 2026"}
+- Developed R Shiny dashboards that integrated disease notification data (SINAN) for public health teams.
+- Automated reporting pipelines; deployed with bslib, shinymanager, renv and Docker for secure, reproducible releases.
+:::
+
+::: {.entry title="MSc Researcher — Viral Genomics & Transcriptomics" org="Biotechnology and Genetics Center, UESC" location="Ilhéus, BA" date="2023 — 2025"}
+- Mined public RNA-Seq libraries of *Theobroma cacao* for viral discovery and genomic surveillance.
+- Performed bulk RNA-Seq analysis (assembly, differential expression, enrichment) with R/Bioconductor.
+- Created the first release of ViralQuest and co-authored studies on viromes, EVEs and bee miRNAs.
+:::
+
+# Selected Projects
+
+::: {.entry title="ViralQuest" org="Creator & lead developer" link="https://github.com/gabrielvpina/viralquest" date="Python · PyPI" tags="Python, Bioinformatics, NGS Pipelines, Data Visualization, D3.js"}
+Interactive, accessible pipeline for viral sequence discovery, annotation and curation,
+with a D3.js HTML report for end users. Published in *BMC Bioinformatics* (2026).
+:::
+
+::: {.entry title="viralfetch & slin" org="Open-source command-line tools" link="https://github.com/gabrielvpina" date="Python · TUI" tags="Python, CLI & TUI, SLURM, HPC, Data Retrieval"}
+**viralfetch** queries and downloads viral taxonomy, metadata and sequences;
+**slin** is a terminal interface for the SLURM workload manager.
+:::
+
+::: {.entry title="Open science & technical writing" org="gabrielvpina.github.io · dataViz · quartoTemplates" link="https://gabrielvpina.github.io" date="R · Quarto" tags="Tutorials, Data Science, Machine Learning, Phylogenetics, Quarto"}
+Personal blog with hands-on tutorials (Sanger sequencing to phylogenetic trees,
+decision trees and exploratory data analysis in R), plus open figure code from
+published papers and community Quarto templates, including this CV.
+:::
+
+::: {.entry title="Reproducible science templates" org="dataViz · quartoTemplates" link="https://github.com/gabrielvpina" date="R · Quarto" tags="R, Quarto, Typst, ggplot2, Reproducibility"}
+Open figure code from published papers and community Quarto templates, including this CV.
+:::
+
+# Selected Publications
+
+::: {.pub date="2026" title="ViralQuest: a user-friendly interactive pipeline for viral-sequences analysis" authors="**Rodrigues, G. V. P.**, Ferreira, L. Y. M., Aguiar, E. R. G. R." venue="BMC Bioinformatics" doi="10.1186/s12859-026-06391-6"}
+:::
+
+::: {.pub date="2026" title="Tracing ancient viral footprints: endogenous viral elements in *Bombus* species" authors="Conceição, L. B. A., Santos, J. P. N., Ferreira, L. Y. M., **Rodrigues, G. V. P.**, et al." venue="Mobile DNA" doi="10.1186/s13100-026-00393-0"}
+:::
+
+::: {.pub date="2025" title="Insights into miRNAs of the stingless bee *Melipona quadrifasciata*" authors="Soares, D. O., Ferreira, L. Y. M., **Rodrigues, G. V. P.**, et al." venue="Non-Coding RNA" doi="10.3390/ncrna11030048"}
+:::
+
+::: {.pub date="2025" title="*Theobroma cacao* virome: exploring public RNA-Seq data for viral discovery and surveillance" authors="**Rodrigues, G. V. P.**, Santos, J. P. N., Ferreira, L. Y. M., et al." venue="Viruses" doi="10.3390/v17050624"}
+:::
+
+::: {.pub date="2024" title="The virome of cocoa fermentation-associated microorganisms" authors="Santos, J. P. N., **Rodrigues, G. V. P.**, Ferreira, L. Y. M., et al." venue="Viruses" doi="10.3390/v16081226"}
+:::
+
